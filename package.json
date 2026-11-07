@@ -1,0 +1,12 @@
+{
+  "name": "cn-connectec",
+  "version": "1.0.0",
+  "description": "HUB multiservicios web — Manta, Manabí",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["multiservicios", "manta", "ecuador", "hub"],
+  "author": "CN ConnectEC",
+  "license": "ISC"
+}

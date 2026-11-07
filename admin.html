@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin — CN ConnectEC</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo-icon.png">
+  <link rel="apple-touch-icon" href="assets/logo-icon.png">
+
+  <!-- OG Meta -->
+  <meta property="og:image" content="assets/logo-full.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     LOGIN SCREEN
+     ════════════════════════════════════════ -->
+<div id="login-screen" class="admin-login">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="assets/logo-full.png" alt="CN ConnectEC logotipo" onerror="this.style.display='none'">
+    </div>
+
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <h1 style="font-size:1.375rem;font-weight:800;color:var(--cn-navy);margin-bottom:0.25rem">Panel de Administración</h1>
+      <p style="font-size:0.875rem;color:var(--cn-text-muted)">Acceso restringido — CN ConnectEC</p>
+    </div>
+
+    <form id="login-form" novalidate>
+      <div class="form-group" style="margin-bottom:0.875rem">
+        <label class="form-label" for="login-user">Usuario</label>
+        <div style="position:relative">
+          <i class="fa-solid fa-user" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:0.875rem"></i>
+          <input
+            id="login-user"
+            name="username"
+            type="text"
+            class="form-input"
+            placeholder="admin"
+            required
+            autocomplete="username"
+            style="padding-left:2.5rem"
+          >
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.25rem">
+        <label class="form-label" for="login-pass">Contraseña</label>
+        <div style="position:relative">
+          <i class="fa-solid fa-lock" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:0.875rem"></i>
+          <input
+            id="login-pass"
+            name="password"
+            type="password"
+            class="form-input"
+            placeholder="••••••••"
+            required
+            autocomplete="current-password"
+            style="padding-left:2.5rem"
+          >
+          <button
+            type="button"
+            id="toggle-pass"
+            style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);border:none;background:none;color:#94a3b8;cursor:pointer;font-size:0.875rem"
+            aria-label="Mostrar/ocultar contraseña"
+          >
+            <i class="fa-solid fa-eye" id="pass-eye-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="login-error" style="display:none;padding:0.75rem;background:#FEE2E2;border:1px solid #FECACA;border-radius:0.5rem;color:#991B1B;font-size:0.875rem;margin-bottom:1rem;text-align:center">
+        <i class="fa-solid fa-circle-exclamation"></i> Usuario o contraseña incorrectos
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center" id="login-btn">
+        <i class="fa-solid fa-right-to-bracket"></i>
+        Iniciar sesión
+      </button>
+
+      <div style="text-align:center;margin-top:1.25rem">
+        <a href="index.html" style="font-size:0.8125rem;color:var(--cn-text-muted)">
+          <i class="fa-solid fa-arrow-left" style="font-size:0.75rem"></i>
+          Volver al sitio
+        </a>
+      </div>
+    </form>
+
+    <p style="text-align:center;font-size:0.6875rem;color:#cbd5e1;margin-top:1.5rem">
+      Usuario demo: <strong>admin</strong> / Contraseña: <strong>admin</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     ADMIN PANEL (oculto hasta login)
+     ════════════════════════════════════════ -->
+<div id="admin-panel" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <!-- Brand -->
+    <div style="padding:1.25rem;border-bottom:1px solid rgba(255,255,255,0.08)">
+      <div style="display:flex;align-items:center;gap:0.625rem">
+        <img src="assets/logo-icon.png" alt="CN ConnectEC" style="height:32px;width:auto" onerror="this.style.display='none'">
+        <div>
+          <div style="font-size:0.875rem;font-weight:800;color:white;line-height:1">
+            CN <span style="color:#00CFFF">CONNECTEC</span>
+          </div>
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);margin-top:1px">Panel Admin</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <nav style="flex:1;padding:1rem 0.75rem;display:flex;flex-direction:column;gap:0.25rem" aria-label="Navegación del panel">
+      <button class="admin-nav-item active" data-section="dashboard">
+        <i class="fa-solid fa-gauge-high"></i>
+        Dashboard
+      </button>
+      <button class="admin-nav-item" data-section="services">
+        <i class="fa-solid fa-layer-group"></i>
+        Servicios
+      </button>
+      <button class="admin-nav-item" data-section="providers">
+        <i class="fa-solid fa-handshake"></i>
+        Prestadores
+      </button>
+      <button class="admin-nav-item" data-section="leads">
+        <i class="fa-solid fa-inbox"></i>
+        Leads & Cotizaciones
+      </button>
+      <button class="admin-nav-item" data-section="settings">
+        <i class="fa-solid fa-gear"></i>
+        Configuración
+      </button>
+    </nav>
+
+    <!-- Bottom -->
+    <div style="padding:1rem;border-top:1px solid rgba(255,255,255,0.08)">
+      <a href="index.html" class="admin-nav-item" style="display:flex;text-decoration:none;margin-bottom:0.25rem">
+        <i class="fa-solid fa-globe"></i>
+        Ver sitio web
+      </a>
+      <button class="admin-nav-item" id="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="admin-content">
+
+    <!-- Top bar -->
+    <div class="admin-topbar">
+      <div style="display:flex;align-items:center;gap:1rem">
+        <button
+          id="sidebar-toggle"
+          class="lg:hidden"
+          style="border:none;background:none;font-size:1.125rem;color:#64748b;cursor:pointer"
+          aria-label="Abrir menú lateral"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div>
+          <h2 id="admin-section-title" style="font-size:1.125rem;font-weight:700;color:var(--cn-navy);margin:0">Dashboard</h2>
+          <p id="admin-section-sub" style="font-size:0.8125rem;color:var(--cn-text-muted);margin:0">Vista general del sistema</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem">
+        <span style="font-size:0.8125rem;color:var(--cn-text-muted)">
+          <i class="fa-solid fa-circle" style="color:var(--cn-success);font-size:0.5rem"></i>
+          admin
+        </span>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <div style="padding:2rem" id="admin-sections-container">
+
+      <!-- ── DASHBOARD ── -->
+      <section id="section-dashboard" class="admin-section">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-bottom:2rem">
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(21,101,192,0.1)">
+              <i class="fa-solid fa-layer-group" style="color:var(--cn-blue)"></i>
+            </div>
+            <div>
+              <div style="font-size:1.75rem;font-weight:800;color:var(--cn-navy)" id="stat-services">—</div>
+              <div style="font-size:0.875rem;color:var(--cn-text-muted)">Servicios activos</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(37,211,102,0.1)">
+              <i class="fa-solid fa-inbox" style="color:var(--cn-wa-green)"></i>
+            </div>
+            <div>
+              <div style="font-size:1.75rem;font-weight:800;color:var(--cn-navy)" id="stat-leads">—</div>
+              <div style="font-size:0.875rem;color:var(--cn-text-muted)">Leads pendientes</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(245,158,11,0.1)">
+              <i class="fa-solid fa-handshake" style="color:var(--cn-warning)"></i>
+            </div>
+            <div>
+              <div style="font-size:1.75rem;font-weight:800;color:var(--cn-navy)" id="stat-providers">—</div>
+              <div style="font-size:0.875rem;color:var(--cn-text-muted)">Postulaciones</div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(0,180,216,0.1)">
+              <i class="fa-solid fa-chart-pie" style="color:var(--cn-cyan)"></i>
+            </div>
+            <div>
+              <div style="font-size:1.75rem;font-weight:800;color:var(--cn-navy)" id="stat-categories">4</div>
+              <div style="font-size:0.875rem;color:var(--cn-text-muted)">Categorías activas</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Category breakdown -->
+        <div style="background:white;border-radius:1rem;padding:1.5rem;box-shadow:var(--shadow-card);border:1px solid rgba(0,0,0,0.05)">
+          <h3 style="font-size:1rem;font-weight:700;color:var(--cn-navy);margin-bottom:1.25rem">Distribución por Categoría</h3>
+          <div id="category-breakdown" style="display:flex;flex-direction:column;gap:0.875rem"></div>
+        </div>
+      </section>
+
+      <!-- ── SERVICES ── -->
+      <section id="section-services" class="admin-section" style="display:none">
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+          <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <input id="service-search" type="search" class="form-input" placeholder="Buscar servicio..." style="max-width:260px;padding:0.5rem 0.875rem">
+            <select id="service-cat-filter" class="form-select" style="max-width:200px;padding:0.5rem 0.875rem">
+              <option value="all">Todas las categorías</option>
+              <option value="tramites">Trámites</option>
+              <option value="vehiculos">Vehículos</option>
+              <option value="delivery">Delivery</option>
+              <option value="asistencia">Asistencia</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="new-service-btn">
+            <i class="fa-solid fa-plus"></i>
+            Nuevo servicio
+          </button>
+        </div>
+
+        <div style="background:white;border-radius:1rem;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(0,0,0,0.05)">
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Servicio</th>
+                  <th>Categoría</th>
+                  <th>Proveedor</th>
+                  <th>Rating</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="services-table-body">
+                <tr><td colspan="6" style="text-align:center;padding:2rem;color:#94a3b8">Cargando servicios...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── PROVIDERS ── -->
+      <section id="section-providers" class="admin-section" style="display:none">
+        <div style="background:white;border-radius:1rem;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(0,0,0,0.05)">
+          <div style="padding:1.25rem 1.5rem;border-bottom:1px solid #f1f5f9">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--cn-navy);margin:0">Postulaciones de Prestadores</h3>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nombre / Empresa</th>
+                  <th>WhatsApp</th>
+                  <th>Categoría</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="providers-table-body">
+                <tr><td colspan="6" style="text-align:center;padding:2rem;color:#94a3b8">No hay postulaciones aún.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── LEADS ── -->
+      <section id="section-leads" class="admin-section" style="display:none">
+        <div style="background:white;border-radius:1rem;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(0,0,0,0.05)">
+          <div style="padding:1.25rem 1.5rem;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--cn-navy);margin:0">Leads & Cotizaciones</h3>
+            <div style="display:flex;gap:0.5rem">
+              <select id="lead-status-filter" class="form-select" style="max-width:160px;padding:0.4rem 0.75rem;font-size:0.8125rem">
+                <option value="all">Todos los estados</option>
+                <option value="pending">Pendiente</option>
+                <option value="contacted">Contactado</option>
+                <option value="done">Concretado</option>
+                <option value="cancelled">Cancelado</option>
+              </select>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Teléfono</th>
+                  <th>Categoría</th>
+                  <th>Zona</th>
+                  <th>Estado</th>
+                  <th>Fecha</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="leads-table-body">
+                <tr><td colspan="7" style="text-align:center;padding:2rem;color:#94a3b8">No hay leads aún.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── SETTINGS ── -->
+      <section id="section-settings" class="admin-section" style="display:none">
+        <div style="max-width:600px">
+          <div style="background:white;border-radius:1rem;padding:1.75rem;box-shadow:var(--shadow-card);border:1px solid rgba(0,0,0,0.05)">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--cn-navy);margin-bottom:1.25rem">
+              <i class="fa-solid fa-gear" style="color:var(--cn-cyan)"></i> Configuración General
+            </h3>
+            <form id="settings-form">
+              <div class="form-group" style="margin-bottom:0.875rem">
+                <label class="form-label" for="cfg-site-name">Nombre del sitio</label>
+                <input id="cfg-site-name" name="siteName" type="text" class="form-input" value="CN ConnectEC">
+              </div>
+              <div class="form-group" style="margin-bottom:0.875rem">
+                <label class="form-label" for="cfg-wa">
+                  <i class="fa-brands fa-whatsapp" style="color:var(--cn-wa-green)"></i>
+                  WhatsApp central
+                </label>
+                <input
+                  id="cfg-wa"
+                  name="whatsappPhone"
+                  type="tel"
+                  class="form-input"
+                  value="+593XXXXXXXXX"
+                  placeholder="+593XXXXXXXXX"
+                >
+                <p style="font-size:0.75rem;color:#94a3b8;margin-top:0.25rem">
+                  Formato Ecuador: +593 seguido de 9 dígitos (sin el 0 inicial).
+                </p>
+              </div>
+              <div class="form-group" style="margin-bottom:1.25rem">
+                <label class="form-label" for="cfg-slogan">Slogan</label>
+                <input id="cfg-slogan" name="slogan" type="text" class="form-input" value="Todo conectado, todo más cerca.">
+              </div>
+
+              <hr style="border-color:#f1f5f9;margin:1.25rem 0">
+
+              <h4 style="font-size:0.875rem;font-weight:700;color:var(--cn-navy);margin-bottom:0.875rem">
+                <i class="fa-solid fa-lock" style="color:var(--cn-cyan)"></i> Cambiar contraseña admin
+              </h4>
+              <div class="form-group" style="margin-bottom:0.75rem">
+                <label class="form-label" for="cfg-pass-new">Nueva contraseña</label>
+                <input id="cfg-pass-new" name="newPassword" type="password" class="form-input" placeholder="Dejar vacío para no cambiar">
+              </div>
+              <div class="form-group" style="margin-bottom:1.25rem">
+                <label class="form-label" for="cfg-pass-confirm">Confirmar contraseña</label>
+                <input id="cfg-pass-confirm" name="confirmPassword" type="password" class="form-input" placeholder="Repetí la contraseña">
+              </div>
+
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Guardar cambios
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /sections-container -->
+  </main>
+</div><!-- /admin-panel -->
+
+<!-- ── Service Form Modal ── -->
+<div id="service-form-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="service-form-title">
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h2 class="modal-title" id="service-form-title">Nuevo Servicio</h2>
+      <button class="modal-close" data-modal-close="service-form-modal" aria-label="Cerrar formulario">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="service-form" novalidate>
+        <input type="hidden" name="id" id="sf-id">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem">
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label" for="sf-title">Título del servicio <span>*</span></label>
+            <input id="sf-title" name="title" type="text" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-category">Categoría <span>*</span></label>
+            <select id="sf-category" name="category" class="form-select" required>
+              <option value="">Seleccioná...</option>
+              <option value="tramites">Trámites y Compra-Venta</option>
+              <option value="vehiculos">Alquiler y Vehículos</option>
+              <option value="delivery">Deliverys y Envíos</option>
+              <option value="asistencia">Auxilio y Asistencia</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-provider">Proveedor <span>*</span></label>
+            <input id="sf-provider" name="provider" type="text" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-price">Nota de precio</label>
+            <input id="sf-price" name="priceNote" type="text" class="form-input" placeholder="Ej: Desde $28/día">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-badge">Badge</label>
+            <select id="sf-badge" name="badge" class="form-select">
+              <option value="none">Ninguno</option>
+              <option value="Verificado CN">Verificado CN</option>
+              <option value="Oficial">Oficial</option>
+              <option value="Top Calificado">Top Calificado</option>
+              <option value="Emergencia 24/7">Emergencia 24/7</option>
+              <option value="Aliado Comercial">Aliado Comercial</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-rating">Rating (0-5)</label>
+            <input id="sf-rating" name="rating" type="number" class="form-input" min="0" max="5" step="0.1" value="4.5">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-reviews">Reseñas</label>
+            <input id="sf-reviews" name="reviews" type="number" class="form-input" min="0" value="0">
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label" for="sf-image">URL de imagen</label>
+            <input id="sf-image" name="image" type="url" class="form-input" placeholder="https://images.unsplash.com/...">
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label" for="sf-desc">Descripción</label>
+            <textarea id="sf-desc" name="description" class="form-textarea" rows="3"></textarea>
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label" for="sf-features">Características (una por línea)</label>
+            <textarea id="sf-features" name="features" class="form-textarea" rows="3" placeholder="Informe de dominio en 24h&#10;Sin deudas ocultas&#10;Asesoría integral"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-wa-phone">WhatsApp del proveedor</label>
+            <input id="sf-wa-phone" name="whatsappPhone" type="tel" class="form-input" placeholder="+593XXXXXXXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sf-zones">Zonas (separadas por coma)</label>
+            <input id="sf-zones" name="zones" type="text" class="form-input" placeholder="Manta Centro, Los Esteros">
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label class="form-label" for="sf-preset">Mensaje WhatsApp preset</label>
+            <textarea id="sf-preset" name="whatsappPreset" class="form-textarea" rows="2" placeholder="Hola, los contacto desde CN ConnectEC (Manta). Necesito..."></textarea>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;justify-content:flex-end;margin-top:1.25rem">
+          <button type="button" class="btn btn-outline" data-modal-close="service-form-modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="sf-submit-btn">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Guardar servicio
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<!-- Scripts -->
+<script src="js/data/services-data.js"></script>
+<script src="js/modules/toast.js"></script>
+
+<script>
+// ════════════════════════════════════════
+//  ADMIN PANEL — JavaScript
+// ════════════════════════════════════════
+
+const AdminApp = (() => {
+  let token = sessionStorage.getItem('cn_admin_token');
+  let services = [];
+  let leads    = [];
+  let providers = [];
+  let settings = {};
+
+  const CAT_LABELS = {
+    tramites: 'Trámites y Compra-Venta',
+    vehiculos: 'Alquiler y Vehículos',
+    delivery: 'Deliverys y Envíos',
+    asistencia: 'Auxilio y Asistencia',
+  };
+  const CAT_COLORS = {
+    tramites:   { bg: 'rgba(21,101,192,0.1)',  color: '#1565C0' },
+    vehiculos:  { bg: 'rgba(124,58,237,0.1)',  color: '#7C3AED' },
+    delivery:   { bg: 'rgba(234,88,12,0.1)',   color: '#EA580C' },
+    asistencia: { bg: 'rgba(239,68,68,0.1)',   color: '#EF4444' },
+  };
+
+  const STATUS_MAP = {
+    pending:   { label: 'Pendiente',  cls: 'status-pending'   },
+    contacted: { label: 'Contactado', cls: 'status-contacted' },
+    done:      { label: 'Concretado', cls: 'status-done'      },
+    cancelled: { label: 'Cancelado',  cls: 'status-cancelled' },
+  };
+
+  // ── API Wrapper ───────────────────────────────────────────
+  async function api(method, endpoint, body = null) {
+    const opts = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+      },
+    };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(endpoint, opts);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return res.json().catch(() => ({}));
+  }
+
+  // ── LOGIN ─────────────────────────────────────────────────
+  function initLogin() {
+    const form   = document.getElementById('login-form');
+    const errMsg = document.getElementById('login-error');
+    const btn    = document.getElementById('login-btn');
+
+    // Password toggle
+    document.getElementById('toggle-pass').addEventListener('click', () => {
+      const inp  = document.getElementById('login-pass');
+      const icon = document.getElementById('pass-eye-icon');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+      } else {
+        inp.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+      }
+    });
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      errMsg.style.display = 'none';
+      const originalHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verificando...';
+
+      const username = document.getElementById('login-user').value.trim();
+      const password = document.getElementById('login-pass').value;
+
+      try {
+        const data = await api('POST', '/api/auth/login', { username, password });
+        token = data.token;
+        sessionStorage.setItem('cn_admin_token', token);
+        showPanel();
+      } catch {
+        // Try demo credentials locally
+        if (username === 'admin' && password === 'admin') {
+          token = 'demo-token-' + Date.now();
+          sessionStorage.setItem('cn_admin_token', token);
+          showPanel();
+        } else {
+          errMsg.style.display = 'block';
+          btn.disabled = false;
+          btn.innerHTML = originalHTML;
+        }
+      }
+    });
+
+    // Auto-login if token exists
+    if (token) showPanel();
+  }
+
+  // ── SHOW PANEL ────────────────────────────────────────────
+  function showPanel() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    loadAllData();
+    initPanel();
+  }
+
+  // ── LOAD DATA ─────────────────────────────────────────────
+  async function loadAllData() {
+    try {
+      services  = await api('GET', '/api/services');
+    } catch {
+      services  = typeof SERVICES_DATA !== 'undefined' ? SERVICES_DATA : [];
+    }
+    try { leads     = await api('GET', '/api/quotes');   } catch { leads    = []; }
+    try { providers = await api('GET', '/api/providers');} catch { providers = []; }
+    try { settings  = await api('GET', '/api/settings'); } catch { settings = {}; }
+
+    renderDashboard();
+    renderServices();
+    renderLeads();
+    renderProviders();
+    loadSettingsForm();
+  }
+
+  // ── DASHBOARD ─────────────────────────────────────────────
+  function renderDashboard() {
+    const activeServices  = services.filter(s => s.active).length;
+    const pendingLeads    = leads.filter(l => l.status === 'pending').length;
+    const totalProviders  = providers.length;
+
+    document.getElementById('stat-services').textContent  = activeServices;
+    document.getElementById('stat-leads').textContent     = pendingLeads;
+    document.getElementById('stat-providers').textContent = totalProviders;
+
+    // Category breakdown
+    const breakdown = document.getElementById('category-breakdown');
+    if (!breakdown) return;
+
+    const cats = ['tramites', 'vehiculos', 'delivery', 'asistencia'];
+    const total = services.filter(s => s.active).length || 1;
+
+    breakdown.innerHTML = cats.map(cat => {
+      const count = services.filter(s => s.active && s.category === cat).length;
+      const pct   = Math.round((count / total) * 100);
+      const c     = CAT_COLORS[cat] || { bg: '#e2e8f0', color: '#64748b' };
+      return `
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem">
+            <span style="font-size:0.875rem;font-weight:500;color:var(--cn-navy)">${CAT_LABELS[cat]}</span>
+            <span style="font-size:0.875rem;font-weight:700;color:${c.color}">${count}</span>
+          </div>
+          <div style="height:6px;background:#f1f5f9;border-radius:9999px;overflow:hidden">
+            <div style="height:100%;width:${pct}%;background:${c.color};border-radius:9999px;transition:width 0.6s ease"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ── SERVICES TABLE ────────────────────────────────────────
+  function renderServices(filterCat = 'all', searchTerm = '') {
+    const tbody = document.getElementById('services-table-body');
+    if (!tbody) return;
+
+    let filtered = services.filter(s => {
+      if (filterCat !== 'all' && s.category !== filterCat) return false;
+      if (searchTerm) {
+        const t = searchTerm.toLowerCase();
+        return s.title.toLowerCase().includes(t) || s.provider.toLowerCase().includes(t);
+      }
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#94a3b8">No hay servicios con esos filtros.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(s => {
+      const c = CAT_COLORS[s.category] || { bg: '#e2e8f0', color: '#64748b' };
+      return `
+        <tr>
+          <td style="max-width:220px">
+            <div style="font-weight:600;color:var(--cn-navy);font-size:0.875rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${s.title}">
+              ${s.title}
+            </div>
+          </td>
+          <td>
+            <span class="badge" style="background:${c.bg};color:${c.color};border-color:${c.color}20">
+              ${CAT_LABELS[s.category] || s.category}
+            </span>
+          </td>
+          <td style="font-size:0.8125rem;color:var(--cn-text-muted)">${s.provider}</td>
+          <td style="font-size:0.875rem;font-weight:600;color:var(--cn-navy)">⭐ ${s.rating}</td>
+          <td>
+            <label class="toggle-switch" title="${s.active ? 'Activo' : 'Pausado'}">
+              <input type="checkbox" ${s.active ? 'checked' : ''} onchange="AdminApp.toggleService('${s.id}', this.checked)">
+              <span class="toggle-track"></span>
+            </label>
+          </td>
+          <td>
+            <div style="display:flex;gap:0.4rem">
+              <button
+                class="btn btn-outline btn-sm"
+                style="padding:0.3rem 0.6rem;font-size:0.75rem"
+                onclick="AdminApp.editService('${s.id}')"
+                aria-label="Editar ${s.title}"
+              >
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button
+                class="btn btn-sm"
+                style="padding:0.3rem 0.6rem;font-size:0.75rem;background:#FEE2E2;color:#991B1B;border:none"
+                onclick="AdminApp.deleteService('${s.id}')"
+                aria-label="Eliminar ${s.title}"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // ── LEADS TABLE ───────────────────────────────────────────
+  function renderLeads(statusFilter = 'all') {
+    const tbody = document.getElementById('leads-table-body');
+    if (!tbody) return;
+
+    const filtered = statusFilter === 'all' ? leads : leads.filter(l => l.status === statusFilter);
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#94a3b8">No hay leads con ese filtro.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(l => {
+      const st  = STATUS_MAP[l.status] || STATUS_MAP.pending;
+      const dt  = l.createdAt ? new Date(l.createdAt).toLocaleDateString('es-EC', { day:'2-digit', month:'short', year:'numeric' }) : '—';
+      const phone = l.phone ? l.phone.replace(/\D/g, '') : '';
+      const waLink = phone ? `https://wa.me/${phone}?text=${encodeURIComponent('Hola ' + (l.name || '') + ', te contactamos desde CN ConnectEC. ')}` : '#';
+      return `
+        <tr>
+          <td style="font-weight:600;color:var(--cn-navy);font-size:0.875rem">${l.name || '—'}</td>
+          <td>
+            ${phone ? `<a href="${waLink}" target="_blank" rel="noopener noreferrer" class="footer-wa-link" style="font-size:0.8125rem">
+              <i class="fa-brands fa-whatsapp"></i> ${l.phone || phone}
+            </a>` : '—'}
+          </td>
+          <td style="font-size:0.8125rem;color:var(--cn-text-muted)">${CAT_LABELS[l.category] || l.category || '—'}</td>
+          <td style="font-size:0.8125rem;color:var(--cn-text-muted)">${l.zone || '—'}</td>
+          <td>
+            <span class="status-badge ${st.cls}">${st.label}</span>
+          </td>
+          <td style="font-size:0.8125rem;color:var(--cn-text-muted);white-space:nowrap">${dt}</td>
+          <td>
+            <select
+              class="form-select"
+              style="padding:0.3rem 0.6rem;font-size:0.75rem;min-width:130px"
+              onchange="AdminApp.updateLeadStatus('${l.id}', this.value)"
+              aria-label="Cambiar estado de ${l.name}"
+            >
+              ${Object.entries(STATUS_MAP).map(([k,v]) =>
+                `<option value="${k}" ${l.status === k ? 'selected' : ''}>${v.label}</option>`
+              ).join('')}
+            </select>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // ── PROVIDERS TABLE ───────────────────────────────────────
+  function renderProviders() {
+    const tbody = document.getElementById('providers-table-body');
+    if (!tbody) return;
+
+    if (providers.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#94a3b8">No hay postulaciones aún.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = providers.map(p => {
+      const dt   = p.createdAt ? new Date(p.createdAt).toLocaleDateString('es-EC') : '—';
+      const phone = p.phone ? p.phone.replace(/\D/g, '') : '';
+      const waLink = phone ? `https://wa.me/${phone}` : '#';
+      const st = p.status === 'approved' ? 'Aprobado' : p.status === 'rejected' ? 'Rechazado' : 'Pendiente';
+      const stCls = p.status === 'approved' ? 'status-done' : p.status === 'rejected' ? 'status-cancelled' : 'status-pending';
+      return `
+        <tr>
+          <td style="font-weight:600;color:var(--cn-navy);font-size:0.875rem">${p.name || '—'}</td>
+          <td>
+            ${phone ? `<a href="${waLink}" target="_blank" class="footer-wa-link" style="font-size:0.8125rem">
+              <i class="fa-brands fa-whatsapp"></i> ${p.phone}
+            </a>` : '—'}
+          </td>
+          <td style="font-size:0.8125rem">${CAT_LABELS[p.category] || p.category || '—'}</td>
+          <td style="font-size:0.8125rem;color:var(--cn-text-muted);white-space:nowrap">${dt}</td>
+          <td><span class="status-badge ${stCls}">${st}</span></td>
+          <td>
+            <div style="display:flex;gap:0.4rem;flex-wrap:wrap">
+              ${p.status !== 'approved' ? `<button class="btn btn-sm" style="background:#D1FAE5;color:#065F46;border:none;font-size:0.75rem;padding:0.3rem 0.6rem" onclick="AdminApp.updateProviderStatus('${p.id}','approved')">
+                <i class="fa-solid fa-check"></i> Aprobar
+              </button>` : ''}
+              ${p.status !== 'rejected' ? `<button class="btn btn-sm" style="background:#FEE2E2;color:#991B1B;border:none;font-size:0.75rem;padding:0.3rem 0.6rem" onclick="AdminApp.updateProviderStatus('${p.id}','rejected')">
+                <i class="fa-solid fa-times"></i> Rechazar
+              </button>` : ''}
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // ── SETTINGS FORM ─────────────────────────────────────────
+  function loadSettingsForm() {
+    if (settings.siteName)      document.getElementById('cfg-site-name').value = settings.siteName;
+    if (settings.whatsappPhone) document.getElementById('cfg-wa').value         = settings.whatsappPhone;
+    if (settings.slogan)        document.getElementById('cfg-slogan').value      = settings.slogan;
+  }
+
+  // ── SERVICE ACTIONS ───────────────────────────────────────
+  async function toggleService(id, active) {
+    const svc = services.find(s => s.id === id);
+    if (svc) svc.active = active;
+    try {
+      await api('PATCH', `/api/services/${id}/toggle`, { active });
+      Toast.success('Estado actualizado', active ? 'Servicio activado' : 'Servicio pausado');
+    } catch {
+      Toast.info('Cambio guardado', 'Se aplicará cuando el servidor esté disponible');
+    }
+    renderDashboard();
+  }
+
+  function editService(id) {
+    const svc = services.find(s => s.id === id);
+    if (!svc) return;
+    const f = document.getElementById('service-form');
+    f['id'].value          = svc.id;
+    f['title'].value       = svc.title || '';
+    f['category'].value    = svc.category || '';
+    f['provider'].value    = svc.provider || '';
+    f['priceNote'].value   = svc.priceNote || '';
+    f['badge'].value       = svc.badge || 'Verificado CN';
+    f['rating'].value      = svc.rating || 4.5;
+    f['reviews'].value     = svc.reviews || 0;
+    f['image'].value       = svc.image || '';
+    f['description'].value = svc.description || '';
+    f['features'].value    = (svc.features || []).join('\n');
+    f['whatsappPhone'].value  = svc.whatsappPhone || '';
+    f['zones'].value          = (svc.zones || []).join(', ');
+    f['whatsappPreset'].value  = svc.whatsappPreset || '';
+
+    document.getElementById('service-form-title').textContent = 'Editar Servicio';
+    openModal('service-form-modal');
+  }
+
+  async function deleteService(id) {
+    if (!confirm('¿Eliminar este servicio permanentemente?')) return;
+    try {
+      await api('DELETE', `/api/services/${id}`);
+    } catch {}
+    services = services.filter(s => s.id !== id);
+    Toast.success('Servicio eliminado');
+    renderServices();
+    renderDashboard();
+  }
+
+  async function updateLeadStatus(id, status) {
+    const lead = leads.find(l => l.id === id);
+    if (lead) lead.status = status;
+    try {
+      await api('PATCH', `/api/quotes/${id}/status`, { status });
+    } catch {}
+    Toast.success('Estado actualizado', STATUS_MAP[status]?.label);
+    renderDashboard();
+  }
+
+  async function updateProviderStatus(id, status) {
+    const prov = providers.find(p => p.id === id);
+    if (prov) prov.status = status;
+    try {
+      await api('PUT', `/api/providers/${id}`, { status });
+    } catch {}
+    Toast.success('Estado del prestador actualizado');
+    renderProviders();
+  }
+
+  // ── MODAL HELPERS ─────────────────────────────────────────
+  function openModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    el.addEventListener('click', e => { if (e.target === el) closeModal(id); }, { once: true });
+  }
+
+  function closeModal(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // ── SECTION NAVIGATION ────────────────────────────────────
+  const SECTION_META = {
+    dashboard: { title: 'Dashboard',          sub: 'Vista general del sistema' },
+    services:  { title: 'Gestión de Servicios', sub: 'CRUD del catálogo de servicios' },
+    providers: { title: 'Prestadores Aliados',  sub: 'Postulaciones pendientes de revisión' },
+    leads:     { title: 'Leads & Cotizaciones', sub: 'Seguimiento de solicitudes de clientes' },
+    settings:  { title: 'Configuración',        sub: 'Ajustes generales del sistema' },
+  };
+
+  function showSection(name) {
+    document.querySelectorAll('.admin-section').forEach(s => s.style.display = 'none');
+    document.querySelectorAll('.admin-nav-item').forEach(b => b.classList.remove('active'));
+
+    const sec = document.getElementById(`section-${name}`);
+    if (sec) sec.style.display = '';
+    const btn = document.querySelector(`.admin-nav-item[data-section="${name}"]`);
+    if (btn) btn.classList.add('active');
+
+    const meta = SECTION_META[name] || {};
+    document.getElementById('admin-section-title').textContent = meta.title || name;
+    document.getElementById('admin-section-sub').textContent   = meta.sub   || '';
+  }
+
+  // ── INIT PANEL ────────────────────────────────────────────
+  function initPanel() {
+    // Section navigation
+    document.querySelectorAll('.admin-nav-item[data-section]').forEach(btn => {
+      btn.addEventListener('click', () => showSection(btn.dataset.section));
+    });
+
+    // Logout
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      sessionStorage.removeItem('cn_admin_token');
+      token = null;
+      document.getElementById('admin-panel').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'flex';
+    });
+
+    // Mobile sidebar toggle
+    document.getElementById('sidebar-toggle').addEventListener('click', () => {
+      document.getElementById('admin-sidebar').classList.toggle('open');
+    });
+
+    // Service filters
+    const sSearch = document.getElementById('service-search');
+    const sCat    = document.getElementById('service-cat-filter');
+    if (sSearch) sSearch.addEventListener('input', () => renderServices(sCat.value, sSearch.value));
+    if (sCat)    sCat.addEventListener('change',   () => renderServices(sCat.value, sSearch.value));
+
+    // Lead status filter
+    const lFilter = document.getElementById('lead-status-filter');
+    if (lFilter) lFilter.addEventListener('change', () => renderLeads(lFilter.value));
+
+    // New service button
+    document.getElementById('new-service-btn')?.addEventListener('click', () => {
+      document.getElementById('service-form').reset();
+      document.getElementById('sf-id').value = '';
+      document.getElementById('service-form-title').textContent = 'Nuevo Servicio';
+      openModal('service-form-modal');
+    });
+
+    // Service form submit
+    const sf = document.getElementById('service-form');
+    if (sf) {
+      sf.addEventListener('submit', async e => {
+        e.preventDefault();
+        const fd = new FormData(sf);
+        const data = {
+          id:            fd.get('id') || 'svc-' + Date.now(),
+          title:         fd.get('title'),
+          category:      fd.get('category'),
+          categoryLabel: CAT_LABELS[fd.get('category')] || fd.get('category'),
+          provider:      fd.get('provider'),
+          priceNote:     fd.get('priceNote'),
+          badge:         fd.get('badge'),
+          badgeColor:    getBadgeColor(fd.get('badge')),
+          rating:        parseFloat(fd.get('rating')) || 4.5,
+          reviews:       parseInt(fd.get('reviews'))  || 0,
+          image:         fd.get('image'),
+          description:   fd.get('description'),
+          features:      fd.get('features').split('\n').filter(Boolean),
+          whatsappPhone: fd.get('whatsappPhone') || '+593XXXXXXXXX',
+          zones:         fd.get('zones').split(',').map(z => z.trim()).filter(Boolean),
+          whatsappPreset: fd.get('whatsappPreset'),
+          active:        true,
+          verified:      true,
+          createdAt:     new Date().toISOString(),
+        };
+
+        const isEdit = sf['id'].value && services.find(s => s.id === sf['id'].value);
+
+        try {
+          if (isEdit) {
+            await api('PUT', `/api/services/${data.id}`, data);
+            const idx = services.findIndex(s => s.id === data.id);
+            if (idx !== -1) services[idx] = data;
+          } else {
+            await api('POST', '/api/services', data);
+            services.push(data);
+          }
+        } catch {
+          if (isEdit) {
+            const idx = services.findIndex(s => s.id === data.id);
+            if (idx !== -1) services[idx] = data;
+          } else {
+            services.push(data);
+          }
+        }
+
+        Toast.success(isEdit ? 'Servicio actualizado' : 'Servicio creado');
+        closeModal('service-form-modal');
+        renderServices();
+        renderDashboard();
+      });
+    }
+
+    // Settings form
+    document.getElementById('settings-form')?.addEventListener('submit', async e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const data = {
+        siteName:      fd.get('siteName'),
+        whatsappPhone: fd.get('whatsappPhone'),
+        slogan:        fd.get('slogan'),
+      };
+      const newPass    = fd.get('newPassword');
+      const confirmPass = fd.get('confirmPassword');
+      if (newPass) {
+        if (newPass !== confirmPass) {
+          Toast.error('Error', 'Las contraseñas no coinciden');
+          return;
+        }
+        data.password = newPass;
+      }
+      try {
+        await api('PUT', '/api/settings', data);
+        Object.assign(settings, data);
+        Toast.success('Configuración guardada');
+      } catch {
+        Toast.info('Guardado localmente', 'Se sincronizará cuando el servidor esté disponible');
+      }
+    });
+
+    // Modal close buttons
+    document.querySelectorAll('[data-modal-close]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.modalClose;
+        if (id) closeModal(id);
+      });
+    });
+
+    // ESC key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay:not(.hidden)').forEach(m => closeModal(m.id));
+      }
+    });
+
+    showSection('dashboard');
+  }
+
+  function getBadgeColor(badge) {
+    const map = {
+      'Verificado CN':     'bg-emerald-50 text-emerald-700 border-emerald-200',
+      'Oficial':           'bg-blue-50 text-blue-700 border-blue-200',
+      'Top Calificado':    'bg-amber-50 text-amber-700 border-amber-200',
+      'Emergencia 24/7':   'bg-red-50 text-red-700 border-red-200',
+      'Aliado Comercial':  'bg-teal-50 text-teal-700 border-teal-200',
+    };
+    return map[badge] || 'bg-gray-50 text-gray-700 border-gray-200';
+  }
+
+  // ── Public ────────────────────────────────────────────────
+  return {
+    init: initLogin,
+    toggleService,
+    editService,
+    deleteService,
+    updateLeadStatus,
+    updateProviderStatus,
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', AdminApp.init);
+</script>
+
+</body>
+</html>

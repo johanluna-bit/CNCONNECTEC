@@ -1,0 +1,278 @@
+/* ============================================================
+   CN ConnectEC — main.css
+   Reset, variables CSS, tipografía base
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ── Custom Properties (Paleta del Logo) ── */
+:root {
+  /* Azules principales */
+  --cn-navy:        #0D2167;
+  --cn-blue:        #1565C0;
+  --cn-blue-light:  #2196F3;
+
+  /* Cyans de acento */
+  --cn-cyan:        #00B4D8;
+  --cn-cyan-bright: #00CFFF;
+  --cn-cyan-soft:   #E0F7FA;
+
+  /* Superficie y texto */
+  --cn-dark:        #060E2B;
+  --cn-surface:     #F0F7FF;
+  --cn-text:        #0D1F4E;
+  --cn-text-muted:  #5C7399;
+
+  /* Semánticos */
+  --cn-wa-green:    #25D366;
+  --cn-success:     #10B981;
+  --cn-warning:     #F59E0B;
+  --cn-danger:      #EF4444;
+
+  /* Sombras */
+  --shadow-card:    0 4px 20px rgba(13, 33, 103, 0.08);
+  --shadow-hover:   0 8px 30px rgba(0, 180, 216, 0.18);
+  --shadow-nav:     0 2px 20px rgba(13, 33, 103, 0.12);
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--cn-text);
+  background-color: var(--cn-surface);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.25;
+  color: var(--cn-navy);
+  font-weight: 700;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.75rem); font-weight: 900; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+h3 { font-size: clamp(1.125rem, 2vw, 1.5rem); }
+
+p { color: var(--cn-text); }
+
+a {
+  color: var(--cn-blue);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover { color: var(--cn-cyan); }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+ul { list-style: none; }
+
+/* ── Utility Classes ── */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px)  { .container { padding: 0 1.5rem; } }
+@media (min-width: 1024px) { .container { padding: 0 2rem; } }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.text-cn-navy        { color: var(--cn-navy); }
+.text-cn-blue        { color: var(--cn-blue); }
+.text-cn-cyan        { color: var(--cn-cyan); }
+.text-cn-cyan-bright { color: var(--cn-cyan-bright); }
+.text-cn-muted       { color: var(--cn-text-muted); }
+.text-cn-wa          { color: var(--cn-wa-green); }
+
+.bg-cn-navy   { background-color: var(--cn-navy); }
+.bg-cn-blue   { background-color: var(--cn-blue); }
+.bg-cn-dark   { background-color: var(--cn-dark); }
+.bg-cn-surface{ background-color: var(--cn-surface); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--cn-blue), var(--cn-cyan));
+  color: white;
+  box-shadow: 0 4px 15px rgba(21, 101, 192, 0.4);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, var(--cn-navy), var(--cn-blue));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(21, 101, 192, 0.5);
+  color: white;
+}
+
+.btn-wa {
+  background: var(--cn-wa-green);
+  color: white;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-wa:hover {
+  background: #1da851;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--cn-blue);
+  border: 2px solid var(--cn-blue);
+}
+
+.btn-outline:hover {
+  background: var(--cn-blue);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(4px);
+}
+
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.875rem;
+  font-size: 0.8125rem;
+}
+
+.btn-lg {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+}
+
+/* ── Section Headers ── */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cn-cyan);
+  background: rgba(0, 180, 216, 0.1);
+  border: 1px solid rgba(0, 180, 216, 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  color: var(--cn-navy);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: var(--cn-text-muted);
+  font-size: 1.0625rem;
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Divider ── */
+.divider-cyan {
+  width: 48px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--cn-blue), var(--cn-cyan));
+  border-radius: 9999px;
+  margin: 1rem auto;
+}
+
+/* ── Badges ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border: 1px solid;
+  white-space: nowrap;
+}
+
+/* ── Rating Stars ── */
+.stars {
+  display: inline-flex;
+  gap: 1px;
+  color: #F59E0B;
+  font-size: 0.75rem;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: var(--cn-cyan); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cn-blue); }
+
+/* ── Focus ── */
+*:focus-visible {
+  outline: 2px solid var(--cn-cyan);
+  outline-offset: 2px;
+}

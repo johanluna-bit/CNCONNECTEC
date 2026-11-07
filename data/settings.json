@@ -1,0 +1,14 @@
+{
+  "siteName": "CN ConnectEC",
+  "slogan": "Todo conectado, todo más cerca.",
+  "whatsappPhone": "+593XXXXXXXXX",
+  "city": "Manta",
+  "province": "Manabí",
+  "country": "Ecuador",
+  "zones": ["Manta Centro", "Los Esteros", "Tarqui", "Jocay", "Urbanizaciones", "Toda Manta"],
+  "socialLinks": {
+    "facebook": "#",
+    "instagram": "#",
+    "tiktok": "#"
+  }
+}

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CN ConnectEC — HUB Multiservicios · Manta, Manabí</title>
+  <meta name="description" content="Conecta con prestadores de servicios verificados en Manta, Manabí. Trámites, vehículos, delivery y asistencia — todo directamente por WhatsApp.">
+  <meta name="keywords" content="servicios Manta, trámites Manta, delivery Manta, alquiler vehículos Manta, CN ConnectEC, Manabí Ecuador">
+  <meta name="author" content="CN ConnectEC">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo-icon.png">
+  <link rel="apple-touch-icon" href="assets/logo-icon.png">
+
+  <!-- OG Meta -->
+  <meta property="og:title" content="CN ConnectEC — HUB Multiservicios Manta">
+  <meta property="og:description" content="Todo conectado, todo más cerca. Servicios verificados en Manta, Manabí.">
+  <meta property="og:image" content="assets/logo-full.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cn-navy':   '#0D2167',
+            'cn-blue':   '#1565C0',
+            'cn-cyan':   '#00B4D8',
+            'cn-dark':   '#060E2B',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     TOPBAR
+     ══════════════════════════════════════════════════════════ -->
+<div class="topbar" role="banner">
+  <div class="container">
+    <div class="topbar__inner">
+      <div class="topbar__left">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span>Conexión directa y segura con prestadores verificados en tu ciudad.</span>
+      </div>
+      <div class="topbar__right">
+        <div class="topbar__shield">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Garantía y Verificación CN</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     NAVBAR
+     ══════════════════════════════════════════════════════════ -->
+<header class="navbar" role="navigation" aria-label="Navegación principal">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:0.75rem 0;position:relative">
+
+      <!-- Logo & Brand (Izquierda) -->
+      <a href="#" style="display:flex;align-items:center;gap:0.625rem;text-decoration:none;flex-shrink:0" aria-label="CN ConnectEC — Inicio">
+        <img src="assets/logo-icon.png" alt="CN ConnectEC ícono" style="height:40px;width:auto" onerror="this.style.display='none'">
+        <div>
+          <div style="font-size:1.1875rem;font-weight:800;line-height:1;letter-spacing:-0.02em">
+            <span style="color:#0D2167">CN </span><span style="color:#0D2167">CONNECT</span><span style="color:#00CFFF">EC</span>
+          </div>
+          <div class="hidden lg:block" style="font-size:0.6875rem;color:#5C7399;font-weight:500;letter-spacing:0.03em;margin-top:1px">
+            Todo conectado, todo más cerca.
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation (Centrada) -->
+      <nav class="desktop-nav items-center justify-center gap-1 xl:gap-2 flex-1" aria-label="Secciones del sitio">
+        <a href="#categorias" class="nav-link">
+          <i class="fa-solid fa-layer-group" style="color:var(--cn-cyan);font-size:0.8125rem"></i>
+          <span>Categorías</span>
+        </a>
+        <a href="#servicios-populares" class="nav-link">
+          <i class="fa-solid fa-briefcase" style="color:var(--cn-cyan);font-size:0.8125rem"></i>
+          <span>Servicios</span>
+        </a>
+        <a href="#como-funciona" class="nav-link">
+          <i class="fa-solid fa-circle-question" style="color:var(--cn-cyan);font-size:0.8125rem"></i>
+          <span>Cómo Funciona</span>
+        </a>
+        <a href="#cotizador" class="nav-link">
+          <i class="fa-solid fa-calculator" style="color:var(--cn-cyan);font-size:0.8125rem"></i>
+          <span>Cotizar</span>
+        </a>
+      </nav>
+
+      <!-- CTA + Mobile toggle (Derecha) -->
+      <div style="display:flex;align-items:center;gap:0.75rem;flex-shrink:0">
+        <a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-wa btn-sm"
+          data-wa-central
+          aria-label="Contactar CN ConnectEC por WhatsApp"
+        >
+          <i class="fa-brands fa-whatsapp"></i>
+          <span class="hidden sm:inline">Contactar</span>
+        </a>
+        <button
+          id="mobile-menu-toggle"
+          class="navbar-toggle lg:hidden"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Menú móvil">
+      <a href="#categorias" class="nav-link">
+        <i class="fa-solid fa-layer-group" style="color:var(--cn-cyan);width:1.25rem"></i>
+        <span>Categorías</span>
+      </a>
+      <a href="#servicios-populares" class="nav-link">
+        <i class="fa-solid fa-briefcase" style="color:var(--cn-cyan);width:1.25rem"></i>
+        <span>Servicios</span>
+      </a>
+      <a href="#como-funciona" class="nav-link">
+        <i class="fa-solid fa-circle-question" style="color:var(--cn-cyan);width:1.25rem"></i>
+        <span>Cómo Funciona</span>
+      </a>
+      <a href="#cotizador" class="nav-link">
+        <i class="fa-solid fa-calculator" style="color:var(--cn-cyan);width:1.25rem"></i>
+        <span>Cotizador Express</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════════════════ -->
+<section class="hero" id="inicio" aria-label="Inicio">
+
+  <!-- Decorative blobs -->
+  <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+
+  <!-- Orbit rings (decorative) -->
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+    <div class="orbit-ring" style="width:500px;height:500px;top:50%;left:50%;margin:-250px 0 0 -250px;opacity:0.06"></div>
+    <div class="orbit-ring orbit-ring-2" style="width:700px;height:700px;top:50%;left:50%;margin:-350px 0 0 -350px;opacity:0.04"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero__inner">
+
+      <!-- Logo -->
+      <div class="hero__logo">
+        <img src="assets/logo-icon.png" alt="CN ConnectEC" onerror="this.style.display='none'">
+      </div>
+
+      <!-- Eyebrow -->
+      <div class="hero__eyebrow animate-fade-in">
+        <i class="fa-solid fa-bolt" style="font-size:0.65rem"></i>
+        Manta, Manabí — Ecuador
+      </div>
+
+      <!-- Title -->
+      <h1 class="hero__title animate-fade-in-up delay-100">
+        Tu red de servicios de <span class="accent">confianza</span>,<br>
+        en un solo lugar
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="hero__subtitle animate-fade-in-up delay-200">
+        Todo conectado, todo más cerca — conecta directamente con prestadores verificados por WhatsApp en Manta.
+      </p>
+
+      <!-- Search Bar -->
+      <div class="hero-search animate-fade-in-up delay-300">
+        <div class="hero-search__box">
+          <span class="hero-search__icon" aria-hidden="true">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input
+            id="hero-search-input"
+            type="search"
+            class="hero-search__input"
+            placeholder="Busca un servicio, trámite o proveedor..."
+            aria-label="Buscar servicios"
+            autocomplete="off"
+          >
+          <button id="hero-search-btn" class="hero-search__btn" aria-label="Buscar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="hidden sm:inline">Buscar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Trust Indicators -->
+      <div class="hero-trust animate-fade-in-up delay-400" aria-label="Indicadores de confianza">
+        <div class="trust-stat">
+          <i class="fa-solid fa-layer-group" style="color:var(--cn-cyan-bright)"></i>
+          <span><strong>5</strong> servicios activos</span>
+        </div>
+        <div class="trust-stat">
+          <i class="fa-solid fa-shield-halved" style="color:var(--cn-cyan-bright)"></i>
+          <span><strong>100%</strong> prestadores verificados</span>
+        </div>
+        <div class="trust-stat">
+          <i class="fa-brands fa-whatsapp" style="color:#4ade80"></i>
+          <span>Contacto <strong>directo</strong> por WS</span>
+        </div>
+      </div>
+
+      <!-- Quick Category Access -->
+      <div class="hero-cats animate-fade-in-up delay-500" aria-label="Categorías principales">
+        <a href="#servicios-populares" class="hero-cat-btn" data-cat="tramites">
+          <i class="fa-solid fa-file-contract"></i>
+          Trámites
+        </a>
+        <a href="#servicios-populares" class="hero-cat-btn" data-cat="vehiculos">
+          <i class="fa-solid fa-car"></i>
+          Vehículos
+        </a>
+        <a href="#servicios-populares" class="hero-cat-btn" data-cat="delivery">
+          <i class="fa-solid fa-motorcycle"></i>
+          Delivery
+        </a>
+        <a href="#servicios-populares" class="hero-cat-btn" data-cat="asistencia">
+          <i class="fa-solid fa-truck-medical"></i>
+          Asistencia
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CATEGORY FILTERS
+     ══════════════════════════════════════════════════════════ -->
+<section class="filters-section" id="categorias" aria-label="Filtrar por categoría">
+  <div class="container">
+    <div class="category-filters" role="group" aria-label="Filtros de categoría">
+
+      <button class="cat-chip active" data-cat="all" aria-pressed="true">
+        <i class="fa-solid fa-th-large" style="color:#64748b"></i>
+        Todos
+        <span class="cat-chip__count">0</span>
+      </button>
+
+      <button class="cat-chip" data-cat="tramites" aria-pressed="false">
+        <i class="fa-solid fa-file-contract" style="color:#1565C0"></i>
+        Trámites y Compra-Venta
+        <span class="cat-chip__count">0</span>
+      </button>
+
+      <button class="cat-chip" data-cat="vehiculos" aria-pressed="false">
+        <i class="fa-solid fa-car" style="color:#7C3AED"></i>
+        Alquiler y Vehículos
+        <span class="cat-chip__count">0</span>
+      </button>
+
+      <button class="cat-chip" data-cat="delivery" aria-pressed="false">
+        <i class="fa-solid fa-motorcycle" style="color:#EA580C"></i>
+        Deliverys y Envíos
+        <span class="cat-chip__count">0</span>
+      </button>
+
+      <button class="cat-chip" data-cat="asistencia" aria-pressed="false">
+        <i class="fa-solid fa-truck-medical" style="color:#EF4444"></i>
+        Auxilio y Asistencia
+        <span class="cat-chip__count">0</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CATÁLOGO DE SERVICIOS
+     ══════════════════════════════════════════════════════════ -->
+<section class="services-section" id="servicios-populares" aria-label="Catálogo de servicios">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">
+        <i class="fa-solid fa-layer-group"></i>
+        Servicios Disponibles
+      </span>
+      <h2 class="section-title">Prestadores verificados listos para ayudarte</h2>
+      <div class="divider-cyan"></div>
+      <p class="section-subtitle">
+        Encontrá el servicio que necesitás y contactá directamente con el proveedor vía WhatsApp.
+      </p>
+    </div>
+
+    <!-- Services Grid (populated by JS) -->
+    <div id="services-grid" class="services-grid" aria-live="polite" aria-label="Lista de servicios">
+      <!-- Skeleton loaders while loading -->
+      <div class="skeleton" style="height:380px;border-radius:1.25rem"></div>
+      <div class="skeleton" style="height:380px;border-radius:1.25rem"></div>
+      <div class="skeleton" style="height:380px;border-radius:1.25rem"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CÓMO FUNCIONA
+     ══════════════════════════════════════════════════════════ -->
+<section class="how-section" id="como-funciona" aria-label="Cómo funciona CN ConnectEC">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">
+        <i class="fa-solid fa-route"></i>
+        Simple y Rápido
+      </span>
+      <h2 class="section-title">¿Cómo funciona?</h2>
+      <div class="divider-cyan"></div>
+      <p class="section-subtitle">
+        Tres pasos para conectarte con el servicio que necesitás en Manta.
+      </p>
+    </div>
+
+    <div class="steps-grid">
+
+      <!-- Paso 1 -->
+      <div class="step-card">
+        <div class="step-icon-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span class="step-number">1</span>
+        </div>
+        <h3 class="step-title">Buscá el servicio</h3>
+        <p class="step-desc">Usá el buscador o explorá las categorías para encontrar exactamente lo que necesitás en tu zona de Manta.</p>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="step-card">
+        <div class="step-icon-wrap">
+          <i class="fa-solid fa-clipboard-check"></i>
+          <span class="step-number">2</span>
+        </div>
+        <h3 class="step-title">Elegí un prestador</h3>
+        <p class="step-desc">Revisá ratings, zonas de cobertura, tarifas y garantías. Todos son prestadores verificados por CN ConnectEC.</p>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="step-card">
+        <div class="step-icon-wrap" style="background:linear-gradient(135deg,#128C7E,#25D366)">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span class="step-number">3</span>
+        </div>
+        <h3 class="step-title">Contactá por WhatsApp</h3>
+        <p class="step-desc">Un clic y abrís el chat directo con el proveedor. El mensaje ya viene pre-cargado para que sea más fácil.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     COTIZADOR EXPRESS
+     ══════════════════════════════════════════════════════════ -->
+<section class="quote-section" id="cotizador" aria-label="Cotizador Express">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center" class="lg:grid-cols-2">
+
+      <!-- Promo text -->
+      <div class="quote-promo hidden lg:block">
+        <span class="section-label" style="background:rgba(0,207,255,0.15);border-color:rgba(0,207,255,0.3)">
+          <i class="fa-solid fa-bolt"></i>
+          Respuesta Rápida
+        </span>
+        <h2 style="margin-top:1rem">¿No encontraste lo que buscabas?</h2>
+        <p>Dejanos tu consulta y te conectamos con el proveedor ideal en Manta. Sin compromisos.</p>
+        <div class="quote-benefits">
+          <div class="quote-benefit">
+            <i class="fa-solid fa-clock"></i>
+            Respuesta en menos de 2 horas
+          </div>
+          <div class="quote-benefit">
+            <i class="fa-solid fa-shield-halved"></i>
+            Siempre con prestadores verificados
+          </div>
+          <div class="quote-benefit">
+            <i class="fa-brands fa-whatsapp"></i>
+            Seguimiento directo por WhatsApp
+          </div>
+          <div class="quote-benefit">
+            <i class="fa-solid fa-dollar-sign"></i>
+            Sin costos adicionales
+          </div>
+        </div>
+      </div>
+
+      <!-- Form card -->
+      <div>
+        <div class="quote-card" style="max-width:520px;margin:0 auto">
+          <!-- Mobile header -->
+          <div class="lg:hidden" style="margin-bottom:1.5rem">
+            <span class="section-label" style="font-size:0.7rem">
+              <i class="fa-solid fa-bolt"></i> Respuesta Rápida
+            </span>
+            <h2 style="font-size:1.5rem;margin-top:0.5rem;color:var(--cn-navy)">Cotizador Express</h2>
+          </div>
+
+          <form id="quote-form" novalidate>
+            <div class="quote-form-grid">
+              <div class="form-group">
+                <label class="form-label" for="q-name">Nombre completo <span>*</span></label>
+                <input id="q-name" name="name" type="text" class="form-input" placeholder="Tu nombre" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="q-phone">Teléfono <span>*</span></label>
+                <div class="phone-group">
+                  <span class="phone-prefix">+593</span>
+                  <input id="q-phone" name="phone" type="tel" class="form-input" placeholder="9X XXX XXXX" required autocomplete="tel" style="flex:1">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:0.75rem">
+              <label class="form-label" for="q-category">Categoría de servicio <span>*</span></label>
+              <div style="position:relative">
+                <select id="q-category" name="category" class="form-select" required style="padding-right:2.5rem">
+                  <option value="">Selecciona una categoría...</option>
+                  <option value="tramites">Trámites y Compra-Venta</option>
+                  <option value="vehiculos">Alquiler y Vehículos</option>
+                  <option value="delivery">Deliverys y Envíos</option>
+                  <option value="asistencia">Auxilio y Asistencia</option>
+                  <option value="otro">Otro</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:0.75rem;pointer-events:none"></i>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:0.75rem">
+              <label class="form-label" for="q-zone">Zona preferida</label>
+              <div style="position:relative">
+                <select id="q-zone" name="zone" class="form-select" style="padding-right:2.5rem">
+                  <option value="all">Toda Manta</option>
+                  <option value="Manta Centro">Manta Centro</option>
+                  <option value="Los Esteros">Los Esteros</option>
+                  <option value="Tarqui">Tarqui</option>
+                  <option value="Jocay">Jocay</option>
+                  <option value="Urbanizaciones">Urbanizaciones</option>
+                </select>
+                <i class="fa-solid fa-chevron-down" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:0.75rem;pointer-events:none"></i>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top:0.75rem">
+              <label class="form-label" for="q-desc">Describe brevemente tu necesidad <span>*</span></label>
+              <textarea
+                id="q-desc"
+                name="description"
+                class="form-textarea"
+                placeholder="Ej: Necesito transferir la matrícula de un vehículo comprado hace 2 semanas..."
+                required
+                rows="3"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg"
+              style="width:100%;justify-content:center;margin-top:1.25rem"
+            >
+              <i class="fa-solid fa-paper-plane"></i>
+              Enviar Cotización Express
+            </button>
+
+            <p style="font-size:0.75rem;color:#94a3b8;text-align:center;margin-top:0.75rem">
+              <i class="fa-solid fa-lock" style="font-size:0.65rem"></i>
+              Tus datos son confidenciales y solo se usan para contactarte.
+            </p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     BANNER PARA PRESTADORES
+     ══════════════════════════════════════════════════════════ -->
+<section class="providers-banner" id="prestadores" aria-label="Únete como prestador aliado">
+  <div class="container">
+    <div class="banner-card">
+      <div class="banner-card__text">
+        <h2>¿Tenés un servicio en Manta?</h2>
+        <p>Sumate a CN ConnectEC como prestador aliado y conectá con cientos de clientes en tu ciudad. Verificación, visibilidad y contacto directo.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;position:relative;z-index:1">
+        <button
+          class="btn btn-wa btn-lg btn-wa-pulse"
+          data-open-provider-modal
+          aria-label="Registrarme como prestador aliado"
+        >
+          <i class="fa-solid fa-handshake"></i>
+          Quiero ser prestador aliado
+        </button>
+        <a
+          href="#como-funciona"
+          class="btn btn-ghost btn-lg"
+        >
+          Saber más
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand col -->
+      <div class="footer-brand">
+        <img src="assets/logo-full.png" alt="CN ConnectEC logotipo completo" onerror="this.style.display='none'">
+        <p>HUB multiservicios digital que conecta usuarios con prestadores de servicios locales verificados en Manta, Manabí.</p>
+        <p style="margin-top:0.75rem;font-size:0.8125rem">
+          <i class="fa-solid fa-location-dot" style="color:var(--cn-cyan)"></i>
+          Manta, Manabí — Ecuador
+        </p>
+        <div class="footer-social" aria-label="Redes sociales">
+          <a href="#" class="social-icon" aria-label="Facebook de CN ConnectEC"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon" aria-label="Instagram de CN ConnectEC"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" aria-label="TikTok de CN ConnectEC"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </div>
+
+      <!-- Categorías -->
+      <div class="footer-col">
+        <h4>Categorías</h4>
+        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('tramites')">
+          <i class="fa-solid fa-file-contract" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Trámites
+        </a>
+        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('vehiculos')">
+          <i class="fa-solid fa-car" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Vehículos
+        </a>
+        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('delivery')">
+          <i class="fa-solid fa-motorcycle" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Delivery
+        </a>
+        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('asistencia')">
+          <i class="fa-solid fa-truck-medical" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Asistencia
+        </a>
+      </div>
+
+      <!-- Sitio -->
+      <div class="footer-col">
+        <h4>Sitio</h4>
+        <a href="#inicio"              class="footer-link">Inicio</a>
+        <a href="#como-funciona"       class="footer-link">Cómo funciona</a>
+        <a href="#cotizador"           class="footer-link">Cotizador Express</a>
+        <a href="#prestadores"         class="footer-link">Ser prestador aliado</a>
+      </div>
+
+      <!-- Contacto -->
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <p style="font-size:0.875rem;margin-bottom:0.5rem;color:#f8fafc;font-weight:600">CN ConnectEC Central</p>
+        <a href="#" class="footer-wa-link" data-wa-central target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-whatsapp" style="font-size:1.125rem"></i>
+          WhatsApp directo
+        </a>
+        <p style="font-size:0.8125rem;color:rgba(203,213,225,0.5);margin-top:0.75rem">
+          Manta, Manabí<br>Ecuador 🇪🇨
+        </p>
+      </div>
+
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="footer-bottom">
+      <span>© 2026 CN ConnectEC · Manta, Ecuador · Todos los derechos reservados.</span>
+      <span style="font-style:italic;color:rgba(203,213,225,0.4)">"Todo conectado, todo más cerca."</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODALES
+     ══════════════════════════════════════════════════════════ -->
+
+<!-- Service Detail Modal -->
+<div id="service-detail-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="service-detail-title">
+  <div class="modal-box modal-lg">
+    <div class="modal-header">
+      <h2 class="modal-title" id="service-detail-title">Detalle del Servicio</h2>
+      <button class="modal-close" data-modal-close="service-detail-modal" aria-label="Cerrar detalle">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body" id="service-detail-body">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- Provider Application Modal -->
+<div id="provider-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="provider-modal-title">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="provider-modal-title">
+        <i class="fa-solid fa-handshake" style="color:var(--cn-cyan);margin-right:0.5rem"></i>
+        Quiero ser Prestador Aliado
+      </h2>
+      <button class="modal-close" data-modal-close="provider-modal" aria-label="Cerrar formulario de prestador">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.875rem;color:var(--cn-text-muted);margin-bottom:1.25rem">
+        Completá tus datos y nos comunicaremos contigo para comenzar el proceso de verificación.
+      </p>
+      <form id="provider-form" novalidate>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.875rem">
+          <div class="form-group">
+            <label class="form-label" for="p-name">Nombre / Empresa <span>*</span></label>
+            <input id="p-name" name="name" type="text" class="form-input" placeholder="Tu nombre o empresa" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p-phone">WhatsApp <span>*</span></label>
+            <div class="phone-group">
+              <span class="phone-prefix">+593</span>
+              <input id="p-phone" name="phone" type="tel" class="form-input" placeholder="9X XXX XXXX" required style="flex:1">
+            </div>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:0.875rem">
+          <label class="form-label" for="p-category">Tipo de servicio que ofrecés <span>*</span></label>
+          <select id="p-category" name="category" class="form-select" required>
+            <option value="">Seleccioná...</option>
+            <option value="tramites">Trámites y Compra-Venta</option>
+            <option value="vehiculos">Alquiler y Vehículos</option>
+            <option value="delivery">Deliverys y Envíos</option>
+            <option value="asistencia">Auxilio y Asistencia</option>
+            <option value="otro">Otro tipo de servicio</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-top:0.875rem">
+          <label class="form-label" for="p-desc">Describe tu servicio brevemente <span>*</span></label>
+          <textarea id="p-desc" name="description" class="form-textarea" placeholder="¿Qué servicio ofrecés? ¿En qué zonas de Manta operás?" required rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:1rem">
+          <i class="fa-solid fa-paper-plane"></i>
+          Enviar Postulación
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════════ -->
+<script src="js/data/services-data.js"></script>
+<script src="js/modules/toast.js"></script>
+<script src="js/modules/search-filter.js"></script>
+<script src="js/modules/modals.js"></script>
+<script src="js/modules/express-quote.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
