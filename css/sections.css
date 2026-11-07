@@ -275,10 +275,6 @@
   margin-bottom: 0.125rem;
 }
 
-.hero-cat-btn[data-cat="tramites"]    i { color: #60A5FA; }
-.hero-cat-btn[data-cat="vehiculos"]   i { color: #C084FC; }
-.hero-cat-btn[data-cat="delivery"]    i { color: #FB923C; }
-.hero-cat-btn[data-cat="asistencia"]  i { color: #F87171; }
 
 .hero-cat-btn:hover {
   background: rgba(255,255,255,0.15);

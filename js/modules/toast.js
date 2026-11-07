@@ -55,22 +55,67 @@ const Toast = (() => {
     c.appendChild(toast);
 
     // Close button
-    toast.querySelector('.toast__close').addEventListener('click', () => dismiss(toast));
+    toast.querySelector('.toast__close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      dismiss(toast);
+    });
 
-    // Auto dismiss
-    const timer = setTimeout(() => dismiss(toast), duration);
+    // Auto dismiss, pausing on hover and keeping the remaining time
+    if (duration > 0) {
+      let remaining = duration;
+      let startedAt = Date.now();
 
-    // Pause on hover
-    toast.addEventListener('mouseenter', () => clearTimeout(timer));
-    toast.addEventListener('mouseleave', () => setTimeout(() => dismiss(toast), 1500));
+      const clearTimer = () => {
+        if (toast._timer) {
+          clearTimeout(toast._timer);
+          toast._timer = null;
+        }
+      };
+
+      const schedule = (ms) => {
+        clearTimer();
+        startedAt = Date.now();
+        toast._timer = setTimeout(() => dismiss(toast), ms);
+      };
+
+      toast.addEventListener('mouseenter', () => {
+        if (!toast._timer) return;
+        remaining = Math.max(0, remaining - (Date.now() - startedAt));
+        clearTimer();
+      });
+
+      toast.addEventListener('mouseleave', () => {
+        if (toast.dataset.dismissed === '1') return;
+        schedule(remaining > 0 ? remaining : 1500);
+      });
+
+      schedule(duration);
+    }
 
     return toast;
   }
 
   function dismiss(toast) {
-    if (!toast || !toast.parentNode) return;
+    if (!toast || toast.dataset.dismissed === '1') return;
+    toast.dataset.dismissed = '1';
+
+    if (toast._timer) {
+      clearTimeout(toast._timer);
+      toast._timer = null;
+    }
+
     toast.classList.add('toast-exit');
-    toast.addEventListener('animationend', () => toast.remove(), { once: true });
+
+    const remove = () => {
+      if (toast.parentNode) toast.remove();
+    };
+
+    // Remove on the exit animation, with a fallback so the toast never sticks
+    // if animations are disabled or the class is overridden by another rule.
+    toast.addEventListener('animationend', (e) => {
+      if (e.target === toast) remove();
+    }, { once: true });
+    setTimeout(remove, 450);
   }
 
   return {

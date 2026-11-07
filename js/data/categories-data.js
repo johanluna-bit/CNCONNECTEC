@@ -1,0 +1,27 @@
+// Respaldo para hosting estático.
+const CATEGORIES_DATA = [
+  {
+    "id": "tramites",
+    "label": "Tramites",
+    "icon": "fa-file-contract",
+    "color": "#1565C0"
+  },
+  {
+    "id": "taxi",
+    "label": "Taxi",
+    "icon": "fa-taxi",
+    "color": "#0F766E"
+  },
+  {
+    "id": "delivery",
+    "label": "Delivery",
+    "icon": "fa-motorcycle",
+    "color": "#EA580C"
+  },
+  {
+    "id": "limpieza",
+    "label": "Limpieza",
+    "icon": "fa-broom",
+    "color": "#7C3AED"
+  }
+];

@@ -18,19 +18,6 @@ const SearchFilter = (() => {
     return `https://wa.me/${clean}?text=${encoded}`;
   }
 
-  // ── Renderizado de estrellas ───────────────────────────────
-  function renderStars(rating) {
-    const full  = Math.floor(rating);
-    const half  = rating % 1 >= 0.5 ? 1 : 0;
-    const empty = 5 - full - half;
-    let html = '<span class="stars" aria-label="' + rating + ' de 5 estrellas">';
-    for (let i = 0; i < full;  i++) html += '<i class="fa-solid fa-star"></i>';
-    if (half)                        html += '<i class="fa-solid fa-star-half-stroke"></i>';
-    for (let i = 0; i < empty; i++) html += '<i class="fa-regular fa-star"></i>';
-    html += '</span>';
-    return html;
-  }
-
   // ── Renderizado de chips de zona ───────────────────────────
   function renderZones(zones) {
     if (!zones || zones.length === 0) return '';
@@ -54,15 +41,9 @@ const SearchFilter = (() => {
   // ── Render de una tarjeta ──────────────────────────────────
   function renderCard(service) {
     const waLink = buildWhatsAppLink(service.whatsappPhone, service.whatsappPreset);
-    const catIcons = {
-      tramites:   'fa-file-contract',
-      vehiculos:  'fa-car',
-      delivery:   'fa-motorcycle',
-      asistencia: 'fa-truck-medical',
-    };
 
     return `
-      <article class="service-card animate-fade-in-up" data-category="${service.category}" data-id="${service.id}">
+      <article class="service-card animate-fade-in-up" data-category="${service.category}" data-id="${service.id}" style="--category-color:${Categories.color(service.category)}">
         <div class="service-card__image-wrap">
           <img
             class="service-card__image"
@@ -71,12 +52,13 @@ const SearchFilter = (() => {
             loading="lazy"
             onerror="this.src='https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=80'"
           >
+          ${service.badge && service.badge !== 'none' ? `
           <div class="service-card__badge">
             <span class="badge ${service.badgeColor}">
               <i class="fa-solid fa-shield-halved" style="font-size:0.6rem"></i>
               ${service.badge}
             </span>
-          </div>
+          </div>` : ''}
         </div>
 
         <div class="service-card__body">
@@ -88,11 +70,6 @@ const SearchFilter = (() => {
           </div>
 
           <div class="service-card__meta">
-            <div class="service-card__rating">
-              ${renderStars(service.rating)}
-              <span class="service-card__rating-score">${service.rating.toFixed(1)}</span>
-              <span class="service-card__reviews">(${service.reviews} reseñas)</span>
-            </div>
             <span class="service-card__price">${service.priceNote}</span>
           </div>
 
@@ -178,6 +155,11 @@ const SearchFilter = (() => {
     const grid = document.getElementById('services-grid');
     if (!grid) return;
 
+    if (currentCategoryFilter !== 'all' && !Categories.find(currentCategoryFilter)) currentCategoryFilter = 'all';
+    document.querySelectorAll('.cat-chip').forEach(chip => {
+      chip.classList.toggle('active', chip.dataset.cat === currentCategoryFilter);
+      chip.setAttribute('aria-pressed', String(chip.dataset.cat === currentCategoryFilter));
+    });
     const filtered = filterServices(allServices);
 
     if (filtered.length === 0) {
@@ -199,7 +181,7 @@ const SearchFilter = (() => {
 
   // ── Actualizar contadores en chips ─────────────────────────
   function updateCategoryCounters() {
-    const categories = ['all', 'tramites', 'vehiculos', 'delivery', 'asistencia'];
+    const categories = ['all', ...Categories.all().map(c => c.id)];
     const activeServices = allServices.filter(s => s.active);
 
     categories.forEach(cat => {
@@ -224,6 +206,7 @@ const SearchFilter = (() => {
     // Update chip UI
     document.querySelectorAll('.cat-chip').forEach(chip => {
       chip.classList.toggle('active', chip.dataset.cat === cat);
+      chip.setAttribute('aria-pressed', String(chip.dataset.cat === cat));
     });
     renderGrid();
     // Scroll to catalog on mobile
@@ -278,9 +261,12 @@ const SearchFilter = (() => {
     allServices = services;
     renderGrid();
 
-    // Category chips
-    document.querySelectorAll('.cat-chip').forEach(chip => {
-      chip.addEventListener('click', () => setCategory(chip.dataset.cat));
+    // Delegación: funciona también después de refrescar el catálogo.
+    document.addEventListener('click', e => {
+      const control = e.target.closest('.cat-chip, .hero-cat-btn, [data-category-link]');
+      if (!control) return;
+      e.preventDefault();
+      setCategory(control.dataset.cat || control.dataset.categoryLink);
     });
 
     // Hero search input
@@ -308,14 +294,7 @@ const SearchFilter = (() => {
       heroZone.addEventListener('change', e => setZone(e.target.value));
     }
 
-    // Hero category quick buttons
-    document.querySelectorAll('.hero-cat-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.preventDefault();
-        setCategory(btn.dataset.cat);
-        scrollToCatalog();
-      });
-    });
+
   }
 
   // ── Public API ─────────────────────────────────────────────

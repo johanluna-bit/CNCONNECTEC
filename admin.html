@@ -141,6 +141,7 @@
         <i class="fa-solid fa-layer-group"></i>
         Servicios
       </button>
+      <button class="admin-nav-item" data-section="categories"><i class="fa-solid fa-tags"></i> Categorías</button>
       <button class="admin-nav-item" data-section="providers">
         <i class="fa-solid fa-handshake"></i>
         Prestadores
@@ -237,7 +238,7 @@
               <i class="fa-solid fa-chart-pie" style="color:var(--cn-cyan)"></i>
             </div>
             <div>
-              <div style="font-size:1.75rem;font-weight:800;color:var(--cn-navy)" id="stat-categories">4</div>
+              <div style="font-size:1.75rem;font-weight:800;color:var(--cn-navy)" id="stat-categories">—</div>
               <div style="font-size:0.875rem;color:var(--cn-text-muted)">Categorías activas</div>
             </div>
           </div>
@@ -251,19 +252,18 @@
         </div>
       </section>
 
+<section id="section-categories" class="admin-section" style="display:none">
+        <button class="btn btn-primary" id="new-category-btn">Nueva categoría</button>
+        <div style="overflow-x:auto;margin-top:1rem"><table class="admin-table"><thead><tr><th>Icono</th><th>Nombre</th><th>ID</th><th>Nº servicios</th><th>Acciones</th></tr></thead><tbody id="categories-table-body"></tbody></table></div>
+      </section>
+
       <!-- ── SERVICES ── -->
       <section id="section-services" class="admin-section" style="display:none">
 
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
             <input id="service-search" type="search" class="form-input" placeholder="Buscar servicio..." style="max-width:260px;padding:0.5rem 0.875rem">
-            <select id="service-cat-filter" class="form-select" style="max-width:200px;padding:0.5rem 0.875rem">
-              <option value="all">Todas las categorías</option>
-              <option value="tramites">Trámites</option>
-              <option value="vehiculos">Vehículos</option>
-              <option value="delivery">Delivery</option>
-              <option value="asistencia">Asistencia</option>
-            </select>
+            <select id="service-cat-filter" class="form-select" style="max-width:200px;padding:0.5rem 0.875rem"><option value="all">Todas las categorías</option></select>
           </div>
           <button class="btn btn-primary" id="new-service-btn">
             <i class="fa-solid fa-plus"></i>
@@ -279,13 +279,12 @@
                   <th>Servicio</th>
                   <th>Categoría</th>
                   <th>Proveedor</th>
-                  <th>Rating</th>
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody id="services-table-body">
-                <tr><td colspan="6" style="text-align:center;padding:2rem;color:#94a3b8">Cargando servicios...</td></tr>
+                <tr><td colspan="5" style="text-align:center;padding:2rem;color:#94a3b8">Cargando servicios...</td></tr>
               </tbody>
             </table>
           </div>
@@ -297,6 +296,7 @@
         <div style="background:white;border-radius:1rem;overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(0,0,0,0.05)">
           <div style="padding:1.25rem 1.5rem;border-bottom:1px solid #f1f5f9">
             <h3 style="font-size:1rem;font-weight:700;color:var(--cn-navy);margin:0">Postulaciones de Prestadores</h3>
+            <select id="provider-cat-filter" class="form-select" aria-label="Filtrar prestadores por categoría"><option value="all">Todas las categorías</option></select>
           </div>
           <div style="overflow-x:auto">
             <table class="admin-table">
@@ -324,6 +324,7 @@
           <div style="padding:1.25rem 1.5rem;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between">
             <h3 style="font-size:1rem;font-weight:700;color:var(--cn-navy);margin:0">Leads & Cotizaciones</h3>
             <div style="display:flex;gap:0.5rem">
+              <select id="lead-cat-filter" class="form-select" aria-label="Filtrar leads por categoría"><option value="all">Todas las categorías</option></select>
               <select id="lead-status-filter" class="form-select" style="max-width:160px;padding:0.4rem 0.75rem;font-size:0.8125rem">
                 <option value="all">Todos los estados</option>
                 <option value="pending">Pendiente</option>
@@ -415,6 +416,19 @@
   </main>
 </div><!-- /admin-panel -->
 
+<div id="category-form-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="category-form-title">
+  <div class="modal-box"><div class="modal-header"><h2 class="modal-title" id="category-form-title">Nueva categoría</h2><button class="modal-close" data-modal-close="category-form-modal" aria-label="Cerrar formulario"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="modal-body"><form id="category-form">
+      <div class="form-group"><label for="cf-label" class="form-label">Nombre</label><input id="cf-label" name="label" class="form-input" required maxlength="40"></div>
+      <div class="form-group"><label for="cf-id" class="form-label">ID</label><input id="cf-id" name="id" class="form-input" required pattern="[a-z0-9-]{2,32}" minlength="2" maxlength="32" aria-describedby="cf-id-help"><small id="cf-id-help">Letras minúsculas, números y guiones. No se cambia después de crear.</small></div>
+      <div class="form-group"><label for="cf-icon" class="form-label">Icono Font Awesome</label><select id="cf-icon" name="icon" class="form-select" required></select><i id="cf-icon-preview" aria-hidden="true" style="font-size:1.5rem;margin:0.75rem"></i></div>
+      <div class="form-group"><label for="cf-color" class="form-label">Color (opcional)</label><input id="cf-color" name="color" class="form-input" placeholder="Color automático" pattern="#[0-9a-fA-F]{6}" maxlength="7" list="category-palette"><datalist id="category-palette"><option value="#1565C0"><option value="#0F766E"><option value="#EA580C"><option value="#7C3AED"></datalist></div>
+      <p id="category-form-error" role="alert" style="color:#991B1B"></p>
+      <button type="submit" class="btn btn-primary" id="cf-submit">Guardar categoría</button>
+    </form></div>
+  </div>
+</div>
+
 <!-- ── Service Form Modal ── -->
 <div id="service-form-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="service-form-title">
   <div class="modal-box modal-lg">
@@ -434,13 +448,7 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="sf-category">Categoría <span>*</span></label>
-            <select id="sf-category" name="category" class="form-select" required>
-              <option value="">Seleccioná...</option>
-              <option value="tramites">Trámites y Compra-Venta</option>
-              <option value="vehiculos">Alquiler y Vehículos</option>
-              <option value="delivery">Deliverys y Envíos</option>
-              <option value="asistencia">Auxilio y Asistencia</option>
-            </select>
+            <select id="sf-category" name="category" class="form-select" required><option value="">Selecciona una categoría...</option></select>
           </div>
           <div class="form-group">
             <label class="form-label" for="sf-provider">Proveedor <span>*</span></label>
@@ -461,17 +469,13 @@
               <option value="Aliado Comercial">Aliado Comercial</option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-label" for="sf-rating">Rating (0-5)</label>
-            <input id="sf-rating" name="rating" type="number" class="form-input" min="0" max="5" step="0.1" value="4.5">
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="sf-reviews">Reseñas</label>
-            <input id="sf-reviews" name="reviews" type="number" class="form-input" min="0" value="0">
-          </div>
           <div class="form-group" style="grid-column:1/-1">
             <label class="form-label" for="sf-image">URL de imagen</label>
             <input id="sf-image" name="image" type="url" class="form-input" placeholder="https://images.unsplash.com/...">
+            <label class="form-label" for="sf-image-file" style="margin-top:0.75rem">Subir imagen (JPEG, PNG, WebP o GIF; máximo 5 MB)</label>
+            <input id="sf-image-file" type="file" accept="image/*" class="form-input" aria-describedby="sf-image-status">
+            <p id="sf-image-status" role="status" aria-live="polite" style="font-size:0.8125rem;margin-top:0.5rem"></p>
+            <img id="sf-image-preview" alt="Vista previa de la imagen del servicio" style="display:none;max-width:100%;max-height:160px;object-fit:contain;margin-top:0.5rem">
           </div>
           <div class="form-group" style="grid-column:1/-1">
             <label class="form-label" for="sf-desc">Descripción</label>
@@ -512,6 +516,8 @@
 
 <!-- Scripts -->
 <script src="js/data/services-data.js"></script>
+<script src="js/data/categories-data.js"></script>
+<script src="js/modules/categories.js"></script>
 <script src="js/modules/toast.js"></script>
 
 <script>
@@ -522,22 +528,19 @@
 const AdminApp = (() => {
   let token = sessionStorage.getItem('cn_admin_token');
   let services = [];
+  let imageUploading = false;
+  let imageUploadVersion = 0;
   let leads    = [];
   let providers = [];
   let settings = {};
 
-  const CAT_LABELS = {
-    tramites: 'Trámites y Compra-Venta',
-    vehiculos: 'Alquiler y Vehículos',
-    delivery: 'Deliverys y Envíos',
-    asistencia: 'Auxilio y Asistencia',
-  };
-  const CAT_COLORS = {
-    tramites:   { bg: 'rgba(21,101,192,0.1)',  color: '#1565C0' },
-    vehiculos:  { bg: 'rgba(124,58,237,0.1)',  color: '#7C3AED' },
-    delivery:   { bg: 'rgba(234,88,12,0.1)',   color: '#EA580C' },
-    asistencia: { bg: 'rgba(239,68,68,0.1)',   color: '#EF4444' },
-  };
+  let categories = [];
+  let CAT_LABELS = {};
+  let CAT_COLORS = {};
+  let editingCategory = null;
+  let categoryIdEdited = false;
+  const CATEGORY_PALETTE = ['#1565C0', '#0F766E', '#EA580C', '#7C3AED'];
+  const CATEGORY_ICONS = ['fa-file-contract', 'fa-taxi', 'fa-motorcycle', 'fa-broom', 'fa-house', 'fa-wrench', 'fa-truck', 'fa-briefcase', 'fa-shop', 'fa-heart', 'fa-tags'];
 
   const STATUS_MAP = {
     pending:   { label: 'Pendiente',  cls: 'status-pending'   },
@@ -559,6 +562,94 @@ const AdminApp = (() => {
     const res = await fetch(endpoint, opts);
     if (!res.ok) throw new Error(`${res.status}`);
     return res.json().catch(() => ({}));
+  }
+
+  async function categoryRequest(method, id, body) {
+    const res = await fetch('/api/categories' + (id ? '/' + encodeURIComponent(id) : ''), {
+      method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      ...(body ? { body: JSON.stringify(body) } : {}),
+    });
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.error + (result.usedBy !== undefined ? ` Servicios en uso: ${result.usedBy}.` : ''));
+    return result;
+  }
+
+  async function refreshCategories() {
+    categories = await Categories.load();
+    CAT_LABELS = Object.fromEntries(categories.map(c => [c.id, Categories.escape(c.label)]));
+    CAT_COLORS = Object.fromEntries(categories.map(c => [c.id, { color: c.color, bg: c.color + '1A' }]));
+    for (const [id, placeholder, value] of [['sf-category', 'Selecciona una categoría...', ''], ['service-cat-filter', 'Todas las categorías', 'all'], ['lead-cat-filter', 'Todas las categorías', 'all'], ['provider-cat-filter', 'Todas las categorías', 'all']]) {
+      const select = document.getElementById(id);
+      const current = select.value;
+      Categories.options(select, placeholder, value);
+      if ([...select.options].some(o => o.value === current)) select.value = current;
+    }
+    renderCategories();
+  }
+
+  function renderCategories() {
+    const esc = Categories.escape;
+    document.getElementById('categories-table-body').innerHTML = categories.map(c => `<tr>
+      <td><i class="fa-solid ${esc(c.icon)}" style="color:${esc(c.color)}" aria-label="${esc(c.icon)}"></i></td><td>${esc(c.label)}</td><td>${esc(c.id)}</td>
+      <td>${services.filter(s => s.category === c.id).length}</td><td><button class="btn btn-sm btn-outline" data-category-edit="${esc(c.id)}">Editar</button> <button class="btn btn-sm btn-outline" data-category-delete="${esc(c.id)}">Eliminar</button></td></tr>`).join('') || '<tr><td colspan="5">No hay categorías.</td></tr>';
+  }
+
+  function editCategory(id = null) {
+    const category = categories.find(c => c.id === id);
+    editingCategory = category?.id || null;
+    categoryIdEdited = false;
+    const f = document.getElementById('category-form');
+    f.reset();
+    f.elements.id.value = category?.id || '';
+    f.elements.id.readOnly = !!category;
+    f.elements.label.value = category?.label || '';
+    const icons = [...new Set([...CATEGORY_ICONS, ...categories.map(c => c.icon)])];
+    f.elements.icon.innerHTML = icons.map(icon => `<option value="${Categories.escape(icon)}">${Categories.escape(icon)}</option>`).join('');
+    f.elements.icon.value = category?.icon || icons[0];
+    f.elements.color.value = category?.color || '';
+    document.getElementById('category-form-title').textContent = category ? 'Editar categoría' : 'Nueva categoría';
+    document.getElementById('category-form-error').textContent = '';
+    previewCategory();
+    openModal('category-form-modal');
+    f.elements.label.focus();
+  }
+
+  function previewCategory() {
+    const f = document.getElementById('category-form');
+    const icon = document.getElementById('cf-icon-preview');
+    icon.className = 'fa-solid ' + f.elements.icon.value;
+    icon.style.color = /^#[0-9a-fA-F]{6}$/.test(f.elements.color.value) ? f.elements.color.value : CATEGORY_PALETTE[categories.length % CATEGORY_PALETTE.length];
+  }
+
+  async function saveCategory(e) {
+    e.preventDefault();
+    const f = e.target;
+    if (!f.reportValidity()) return;
+    const data = { id: f.elements.id.value, label: f.elements.label.value.trim(), icon: f.elements.icon.value, color: f.elements.color.value || CATEGORY_PALETTE[categories.length % CATEGORY_PALETTE.length] };
+    if (!data.label) return;
+    const btn = document.getElementById('cf-submit');
+    btn.disabled = true;
+    try {
+      await categoryRequest(editingCategory ? 'PUT' : 'POST', editingCategory, data);
+      await refreshCategories();
+      renderDashboard(); renderServices(); renderLeads(); renderProviders();
+      closeModal('category-form-modal');
+      Toast.success('Categoría guardada');
+    } catch (err) {
+      document.getElementById('category-form-error').textContent = err.message;
+      Toast.error('No se pudo guardar', err.message);
+    } finally { btn.disabled = false; }
+  }
+
+  async function deleteCategory(id) {
+    const category = categories.find(c => c.id === id);
+    if (!category || !confirm(`¿Eliminar la categoría «${category.label}»?`)) return;
+    try {
+      await categoryRequest('DELETE', id);
+      await refreshCategories();
+      renderDashboard(); renderServices(); renderLeads(); renderProviders();
+      Toast.success('Categoría eliminada');
+    } catch (err) { Toast.error('No se pudo eliminar', err.message); }
   }
 
   // ── LOGIN ─────────────────────────────────────────────────
@@ -632,6 +723,7 @@ const AdminApp = (() => {
     try { providers = await api('GET', '/api/providers');} catch { providers = []; }
     try { settings  = await api('GET', '/api/settings'); } catch { settings = {}; }
 
+    await refreshCategories();
     renderDashboard();
     renderServices();
     renderLeads();
@@ -641,6 +733,7 @@ const AdminApp = (() => {
 
   // ── DASHBOARD ─────────────────────────────────────────────
   function renderDashboard() {
+    renderCategories();
     const activeServices  = services.filter(s => s.active).length;
     const pendingLeads    = leads.filter(l => l.status === 'pending').length;
     const totalProviders  = providers.length;
@@ -653,7 +746,8 @@ const AdminApp = (() => {
     const breakdown = document.getElementById('category-breakdown');
     if (!breakdown) return;
 
-    const cats = ['tramites', 'vehiculos', 'delivery', 'asistencia'];
+    const cats = categories.map(c => c.id);
+    document.getElementById('stat-categories').textContent = categories.length;
     const total = services.filter(s => s.active).length || 1;
 
     breakdown.innerHTML = cats.map(cat => {
@@ -689,7 +783,7 @@ const AdminApp = (() => {
     });
 
     if (filtered.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#94a3b8">No hay servicios con esos filtros.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;color:#94a3b8">No hay servicios con esos filtros.</td></tr>';
       return;
     }
 
@@ -708,7 +802,6 @@ const AdminApp = (() => {
             </span>
           </td>
           <td style="font-size:0.8125rem;color:var(--cn-text-muted)">${s.provider}</td>
-          <td style="font-size:0.875rem;font-weight:600;color:var(--cn-navy)">⭐ ${s.rating}</td>
           <td>
             <label class="toggle-switch" title="${s.active ? 'Activo' : 'Pausado'}">
               <input type="checkbox" ${s.active ? 'checked' : ''} onchange="AdminApp.toggleService('${s.id}', this.checked)">
@@ -745,7 +838,8 @@ const AdminApp = (() => {
     const tbody = document.getElementById('leads-table-body');
     if (!tbody) return;
 
-    const filtered = statusFilter === 'all' ? leads : leads.filter(l => l.status === statusFilter);
+    const category = document.getElementById('lead-cat-filter').value;
+    const filtered = leads.filter(l => (statusFilter === 'all' || l.status === statusFilter) && (category === 'all' || l.category === category));
 
     if (filtered.length === 0) {
       tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#94a3b8">No hay leads con ese filtro.</td></tr>';
@@ -793,12 +887,14 @@ const AdminApp = (() => {
     const tbody = document.getElementById('providers-table-body');
     if (!tbody) return;
 
-    if (providers.length === 0) {
+    const category = document.getElementById('provider-cat-filter').value;
+    const filtered = providers.filter(p => category === 'all' || p.category === category);
+    if (filtered.length === 0) {
       tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#94a3b8">No hay postulaciones aún.</td></tr>';
       return;
     }
 
-    tbody.innerHTML = providers.map(p => {
+    tbody.innerHTML = filtered.map(p => {
       const dt   = p.createdAt ? new Date(p.createdAt).toLocaleDateString('es-EC') : '—';
       const phone = p.phone ? p.phone.replace(/\D/g, '') : '';
       const waLink = phone ? `https://wa.me/${phone}` : '#';
@@ -837,6 +933,75 @@ const AdminApp = (() => {
     if (settings.slogan)        document.getElementById('cfg-slogan').value      = settings.slogan;
   }
 
+  function updateImagePreview() {
+    const preview = document.getElementById('sf-image-preview');
+    const url = document.getElementById('sf-image').value.trim();
+    preview.style.display = url ? 'block' : 'none';
+    if (url) preview.src = url;
+    else preview.removeAttribute('src');
+  }
+
+  function setImageUploading(value) {
+    imageUploading = value;
+    document.getElementById('sf-submit-btn').disabled = value;
+    document.getElementById('sf-image').disabled = value;
+    document.getElementById('sf-image-file').disabled = value;
+  }
+
+  function resetImageUpload() {
+    imageUploadVersion++;
+    setImageUploading(false);
+    document.getElementById('sf-image-file').value = '';
+    document.getElementById('sf-image-status').textContent = '';
+  }
+
+  async function uploadServiceImage() {
+    const input = document.getElementById('sf-image-file');
+    const file = input.files[0];
+    if (!file) return;
+    const status = document.getElementById('sf-image-status');
+    if (!['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(file.type) ||
+        file.size === 0 || file.size > 5 * 1024 * 1024) {
+      status.textContent = 'Seleccioná un JPEG, PNG, WebP o GIF de hasta 5 MB.';
+      input.value = '';
+      return;
+    }
+
+    const version = ++imageUploadVersion;
+    setImageUploading(true);
+    status.textContent = 'Subiendo imagen…';
+    try {
+      const dataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('No se pudo leer la imagen.'));
+        reader.onabort = () => reject(new Error('Lectura cancelada.'));
+        reader.readAsDataURL(file);
+      });
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ filename: file.name, dataUrl }),
+      });
+      const result = await res.json();
+      if (!res.ok || !result.ok || !result.url) {
+        throw new Error(result.error || 'No se pudo subir la imagen.');
+      }
+      if (version !== imageUploadVersion) return;
+      document.getElementById('sf-image').value = result.url;
+      updateImagePreview();
+      status.textContent = 'Imagen subida.';
+    } catch (err) {
+      if (version !== imageUploadVersion) return;
+      status.textContent = err.message || 'No se pudo subir la imagen.';
+    } finally {
+      if (version === imageUploadVersion) {
+        setImageUploading(false);
+        input.value = '';
+      }
+    }
+  }
+
   // ── SERVICE ACTIONS ───────────────────────────────────────
   async function toggleService(id, active) {
     const svc = services.find(s => s.id === id);
@@ -854,15 +1019,15 @@ const AdminApp = (() => {
     const svc = services.find(s => s.id === id);
     if (!svc) return;
     const f = document.getElementById('service-form');
+    resetImageUpload();
     f['id'].value          = svc.id;
     f['title'].value       = svc.title || '';
     f['category'].value    = svc.category || '';
     f['provider'].value    = svc.provider || '';
     f['priceNote'].value   = svc.priceNote || '';
-    f['badge'].value       = svc.badge || 'Verificado CN';
-    f['rating'].value      = svc.rating || 4.5;
-    f['reviews'].value     = svc.reviews || 0;
+    f['badge'].value       = (svc.badge && svc.badge !== 'none') ? svc.badge : 'none';
     f['image'].value       = svc.image || '';
+    updateImagePreview();
     f['description'].value = svc.description || '';
     f['features'].value    = (svc.features || []).join('\n');
     f['whatsappPhone'].value  = svc.whatsappPhone || '';
@@ -917,11 +1082,13 @@ const AdminApp = (() => {
     const el = document.getElementById(id);
     if (!el) return;
     el.classList.add('hidden');
+    if (id === 'service-form-modal') resetImageUpload();
     document.body.style.overflow = '';
   }
 
   // ── SECTION NAVIGATION ────────────────────────────────────
   const SECTION_META = {
+    categories: { title: 'Categorías', sub: 'Gestión del catálogo de categorías' },
     dashboard: { title: 'Dashboard',          sub: 'Vista general del sistema' },
     services:  { title: 'Gestión de Servicios', sub: 'CRUD del catálogo de servicios' },
     providers: { title: 'Prestadores Aliados',  sub: 'Postulaciones pendientes de revisión' },
@@ -945,6 +1112,21 @@ const AdminApp = (() => {
 
   // ── INIT PANEL ────────────────────────────────────────────
   function initPanel() {
+    document.getElementById('new-category-btn').addEventListener('click', () => editCategory());
+    document.getElementById('category-form').addEventListener('submit', saveCategory);
+    document.getElementById('cf-label').addEventListener('input', e => {
+      if (!editingCategory && !categoryIdEdited) document.getElementById('cf-id').value = e.target.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 32);
+    });
+    document.getElementById('cf-id').addEventListener('input', () => { categoryIdEdited = true; });
+    document.getElementById('cf-icon').addEventListener('change', previewCategory);
+    document.getElementById('cf-color').addEventListener('input', previewCategory);
+    document.getElementById('categories-table-body').addEventListener('click', e => {
+      const edit = e.target.closest('[data-category-edit]');
+      const remove = e.target.closest('[data-category-delete]');
+      if (edit) editCategory(edit.dataset.categoryEdit);
+      if (remove) deleteCategory(remove.dataset.categoryDelete);
+    });
+
     // Section navigation
     document.querySelectorAll('.admin-nav-item[data-section]').forEach(btn => {
       btn.addEventListener('click', () => showSection(btn.dataset.section));
@@ -969,6 +1151,9 @@ const AdminApp = (() => {
     if (sSearch) sSearch.addEventListener('input', () => renderServices(sCat.value, sSearch.value));
     if (sCat)    sCat.addEventListener('change',   () => renderServices(sCat.value, sSearch.value));
 
+    document.getElementById('provider-cat-filter').addEventListener('change', renderProviders);
+    document.getElementById('lead-cat-filter').addEventListener('change', () => renderLeads(document.getElementById('lead-status-filter').value));
+
     // Lead status filter
     const lFilter = document.getElementById('lead-status-filter');
     if (lFilter) lFilter.addEventListener('change', () => renderLeads(lFilter.value));
@@ -976,28 +1161,34 @@ const AdminApp = (() => {
     // New service button
     document.getElementById('new-service-btn')?.addEventListener('click', () => {
       document.getElementById('service-form').reset();
+      resetImageUpload();
+      updateImagePreview();
       document.getElementById('sf-id').value = '';
       document.getElementById('service-form-title').textContent = 'Nuevo Servicio';
       openModal('service-form-modal');
     });
+
+    document.getElementById('sf-image-file').addEventListener('change', uploadServiceImage);
+    document.getElementById('sf-image').addEventListener('input', updateImagePreview);
+    document.getElementById('sf-image-preview').addEventListener('error', e => { e.target.style.display = 'none'; });
 
     // Service form submit
     const sf = document.getElementById('service-form');
     if (sf) {
       sf.addEventListener('submit', async e => {
         e.preventDefault();
+        if (imageUploading) return;
         const fd = new FormData(sf);
+        const badge = fd.get('badge') === 'none' ? '' : fd.get('badge');
         const data = {
           id:            fd.get('id') || 'svc-' + Date.now(),
           title:         fd.get('title'),
           category:      fd.get('category'),
-          categoryLabel: CAT_LABELS[fd.get('category')] || fd.get('category'),
+          categoryLabel: Categories.label(fd.get('category')),
           provider:      fd.get('provider'),
           priceNote:     fd.get('priceNote'),
-          badge:         fd.get('badge'),
-          badgeColor:    getBadgeColor(fd.get('badge')),
-          rating:        parseFloat(fd.get('rating')) || 4.5,
-          reviews:       parseInt(fd.get('reviews'))  || 0,
+          badge,
+          badgeColor:    badge ? getBadgeColor(badge) : '',
           image:         fd.get('image'),
           description:   fd.get('description'),
           features:      fd.get('features').split('\n').filter(Boolean),

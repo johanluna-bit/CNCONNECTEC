@@ -257,14 +257,6 @@ ul { list-style: none; }
   white-space: nowrap;
 }
 
-/* ── Rating Stars ── */
-.stars {
-  display: inline-flex;
-  gap: 1px;
-  color: #F59E0B;
-  font-size: 0.75rem;
-}
-
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; }

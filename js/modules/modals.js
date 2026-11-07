@@ -68,18 +68,6 @@ const Modals = (() => {
     openModal('zone-modal');
   }
 
-  // ── Render stars helper ───────────────────────────────────
-  function renderStars(rating) {
-    const full  = Math.floor(rating);
-    const half  = rating % 1 >= 0.5 ? 1 : 0;
-    const empty = 5 - full - half;
-    let html = '';
-    for (let i = 0; i < full;  i++) html += '<i class="fa-solid fa-star" style="color:#F59E0B"></i>';
-    if (half)                        html += '<i class="fa-solid fa-star-half-stroke" style="color:#F59E0B"></i>';
-    for (let i = 0; i < empty; i++) html += '<i class="fa-regular fa-star" style="color:#F59E0B"></i>';
-    return html;
-  }
-
   // ── Service Detail Modal ─────────────────────────────────
   function openServiceDetail(service) {
     const modal = document.getElementById('service-detail-modal');
@@ -98,13 +86,14 @@ const Modals = (() => {
         >
 
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem">
+          ${service.badge && service.badge !== 'none' ? `
           <span class="badge ${service.badgeColor}">
             <i class="fa-solid fa-shield-halved" style="font-size:0.6rem"></i>
             ${service.badge}
-          </span>
+          </span>` : ''}
           <span style="font-size:0.8125rem;color:var(--cn-text-muted)">
             <i class="fa-solid fa-tag" style="color:var(--cn-blue)"></i>
-            ${service.categoryLabel}
+            ${Categories.escape(Categories.label(service.category))}
           </span>
         </div>
 
@@ -113,12 +102,6 @@ const Modals = (() => {
         <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem">
           <i class="fa-solid fa-circle-check" style="color:var(--cn-success)"></i>
           <span style="font-size:0.9rem;font-weight:600;color:var(--cn-text-muted)">${service.provider}</span>
-        </div>
-
-        <div class="service-detail-rating" style="margin-bottom:1.25rem">
-          ${renderStars(service.rating)}
-          <strong style="color:var(--cn-navy)">${service.rating.toFixed(1)}</strong>
-          <span style="color:var(--cn-text-muted);font-size:0.875rem">(${service.reviews} reseñas verificadas)</span>
         </div>
 
         <div style="display:flex;align-items:center;justify-content:space-between;padding:0.875rem 1rem;background:rgba(21,101,192,0.07);border-radius:0.75rem;margin-bottom:1.25rem">

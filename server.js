@@ -72,6 +72,52 @@ function isAuthorized(req) {
   return activeTokens.has(token);
 }
 
+// Límite exclusivo de upload: base64 de 5 MB más el envoltorio JSON.
+function getUploadBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    let size = 0;
+    let exceeded = false;
+    req.on('data', chunk => {
+      size += chunk.length;
+      if (size > 7 * 1024 * 1024) {
+        if (!exceeded) {
+          exceeded = true;
+          chunks.length = 0;
+          reject(Object.assign(new Error('La carga supera el límite permitido.'), { status: 413 }));
+        }
+        return;
+      }
+      if (!exceeded) chunks.push(chunk);
+    });
+    req.on('end', () => {
+      if (exceeded) return;
+      try {
+        resolve(JSON.parse(Buffer.concat(chunks).toString('utf8')));
+      } catch {
+        reject(Object.assign(new Error('JSON inválido.'), { status: 400 }));
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+// El mismo respaldo alimenta la API cuando aún no existe el archivo persistido.
+function readCategories() {
+  if (!fs.existsSync(path.join(DATA_DIR, 'categories.json'))) {
+    const source = fs.readFileSync(path.join(__dirname, 'js/data/categories-data.js'), 'utf8');
+    const defaults = JSON.parse(source.slice(source.indexOf('['), source.lastIndexOf(']') + 1));
+    if (!writeJson('categories.json', defaults)) throw new Error('No se pudo crear el catálogo');
+  }
+  return readJson('categories.json');
+}
+function validCategory(c) {
+  return c && typeof c.id === 'string' && /^[a-z0-9-]{2,32}$/.test(c.id) &&
+    typeof c.label === 'string' && c.label.trim().length >= 1 && c.label.trim().length <= 40 &&
+    typeof c.icon === 'string' && /^fa-[a-z0-9-]+$/.test(c.icon) &&
+    typeof c.color === 'string' && /^#[0-9a-fA-F]{6}$/.test(c.color);
+}
+
 // ── Tipos MIME para archivos estáticos ──
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -83,7 +129,8 @@ const MIME_TYPES = {
   '.jpeg': 'image/jpeg',
   '.svg':  'image/svg+xml',
   '.ico':  'image/x-icon',
-  '.webp': 'image/webp'
+  '.webp': 'image/webp',
+  '.gif':  'image/gif'
 };
 
 function serveStatic(req, res, pathname) {
@@ -157,6 +204,83 @@ const server = http.createServer(async (req, res) => {
       const token = auth.replace(/^Bearer\s+/i, '').trim();
       activeTokens.delete(token);
       return sendJson(res, 200, { ok: true });
+    }
+
+    // ── IMAGE UPLOAD ──
+    if (pathname === '/api/upload' && method === 'POST') {
+      if (!isAuthorized(req)) return sendJson(res, 401, { error: 'No autorizado' });
+      try {
+        const body = await getUploadBody(req);
+        const { filename, dataUrl } = body || {};
+        const match = typeof dataUrl === 'string' &&
+          dataUrl.match(/^data:(image\/(?:jpeg|png|webp|gif));base64,([A-Za-z0-9+/]+={0,2})$/);
+        if (typeof filename !== 'string' || !filename.trim() || filename.length > 255 || !match) {
+          return sendJson(res, 400, { error: 'Enviá un nombre y una imagen JPEG, PNG, WebP o GIF válida.' });
+        }
+        const image = Buffer.from(match[2], 'base64');
+        if (!image.length || image.toString('base64') !== match[2]) {
+          return sendJson(res, 400, { error: 'Imagen base64 inválida.' });
+        }
+        if (image.length > 5 * 1024 * 1024) {
+          return sendJson(res, 413, { error: 'La imagen supera los 5 MB.' });
+        }
+        const extensions = { 'image/jpeg': '.jpg', 'image/png': '.png', 'image/webp': '.webp', 'image/gif': '.gif' };
+        const base = path.parse(filename.replace(/\\/g, '/').split('/').pop()).name
+          .replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 80) || 'imagen';
+        const savedName = base + '-' + crypto.randomBytes(16).toString('hex') + extensions[match[1]];
+        const directory = path.join(__dirname, 'assets', 'uploads');
+        await fs.promises.mkdir(directory, { recursive: true });
+        await fs.promises.writeFile(path.join(directory, savedName), image, { flag: 'wx' });
+        return sendJson(res, 200, { ok: true, url: '/assets/uploads/' + savedName });
+      } catch (err) {
+        return sendJson(res, err.status || 500, {
+          error: err.status ? err.message : 'No se pudo guardar la imagen.'
+        });
+      }
+    }
+
+    // ── CATEGORIES ──
+    const categoryMatch = pathname.match(/^\/api\/categories\/([a-z0-9-]+)$/);
+    if (pathname === '/api/categories' || categoryMatch) {
+      if (method !== 'GET' && !isAuthorized(req)) return sendJson(res, 401, { error: 'No autorizado' });
+      try {
+        const categories = readCategories();
+        if (pathname === '/api/categories' && method === 'GET') return sendJson(res, 200, categories);
+        if (pathname === '/api/categories' && method === 'POST') {
+          const body = await getRequestBody(req);
+          if (!validCategory(body)) return sendJson(res, 400, { error: 'Categoría inválida: revisá id, nombre, icono y color hexadecimal.' });
+          if (categories.some(c => c.id === body.id)) return sendJson(res, 409, { error: 'El ID ya existe.' });
+          const category = { id: body.id, label: body.label.trim(), icon: body.icon, color: body.color };
+          categories.push(category);
+          if (!writeJson('categories.json', categories)) throw new Error('No se pudo guardar');
+          return sendJson(res, 201, category);
+        }
+        if (categoryMatch) {
+          const id = categoryMatch[1];
+          const idx = categories.findIndex(c => c.id === id);
+          if (idx === -1) return sendJson(res, 404, { error: 'Categoría no encontrada' });
+          if (method === 'PUT') {
+            const body = await getRequestBody(req);
+            if (body.id !== undefined && body.id !== id) return sendJson(res, 400, { error: 'El ID no se puede cambiar.' });
+            const category = { ...categories[idx], ...Object.fromEntries(['label', 'icon', 'color'].filter(k => body[k] !== undefined).map(k => [k, body[k]])), id };
+            if (!validCategory(category)) return sendJson(res, 400, { error: 'Nombre, icono o color inválido.' });
+            category.label = category.label.trim();
+            categories[idx] = category;
+            if (!writeJson('categories.json', categories)) throw new Error('No se pudo guardar');
+            return sendJson(res, 200, category);
+          }
+          if (method === 'DELETE') {
+            const usedBy = readJson('services.json').filter(s => s.category === id).length;
+            if (usedBy) return sendJson(res, 409, { error: 'Categoría utilizada por servicios.', usedBy });
+            categories.splice(idx, 1);
+            if (!writeJson('categories.json', categories)) throw new Error('No se pudo guardar');
+            return sendJson(res, 200, { ok: true });
+          }
+        }
+        return sendJson(res, 405, { error: 'Método no permitido' });
+      } catch {
+        return sendJson(res, 500, { error: 'No se pudo guardar el catálogo.' });
+      }
     }
 
     // ── SERVICES ──

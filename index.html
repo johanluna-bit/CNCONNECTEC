@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CN ConnectEC — HUB Multiservicios · Manta, Manabí</title>
-  <meta name="description" content="Conecta con prestadores de servicios verificados en Manta, Manabí. Trámites, vehículos, delivery y asistencia — todo directamente por WhatsApp.">
+  <meta name="description" content="Conecta con prestadores de servicios verificados en Manta, Manabí. Servicios locales — todo directamente por WhatsApp.">
   <meta name="keywords" content="servicios Manta, trámites Manta, delivery Manta, alquiler vehículos Manta, CN ConnectEC, Manabí Ecuador">
   <meta name="author" content="CN ConnectEC">
 
@@ -237,24 +237,7 @@
       </div>
 
       <!-- Quick Category Access -->
-      <div class="hero-cats animate-fade-in-up delay-500" aria-label="Categorías principales">
-        <a href="#servicios-populares" class="hero-cat-btn" data-cat="tramites">
-          <i class="fa-solid fa-file-contract"></i>
-          Trámites
-        </a>
-        <a href="#servicios-populares" class="hero-cat-btn" data-cat="vehiculos">
-          <i class="fa-solid fa-car"></i>
-          Vehículos
-        </a>
-        <a href="#servicios-populares" class="hero-cat-btn" data-cat="delivery">
-          <i class="fa-solid fa-motorcycle"></i>
-          Delivery
-        </a>
-        <a href="#servicios-populares" class="hero-cat-btn" data-cat="asistencia">
-          <i class="fa-solid fa-truck-medical"></i>
-          Asistencia
-        </a>
-      </div>
+      <div class="hero-cats animate-fade-in-up delay-500" aria-label="Categorías principales"></div>
 
     </div>
   </div>
@@ -265,39 +248,7 @@
      ══════════════════════════════════════════════════════════ -->
 <section class="filters-section" id="categorias" aria-label="Filtrar por categoría">
   <div class="container">
-    <div class="category-filters" role="group" aria-label="Filtros de categoría">
-
-      <button class="cat-chip active" data-cat="all" aria-pressed="true">
-        <i class="fa-solid fa-th-large" style="color:#64748b"></i>
-        Todos
-        <span class="cat-chip__count">0</span>
-      </button>
-
-      <button class="cat-chip" data-cat="tramites" aria-pressed="false">
-        <i class="fa-solid fa-file-contract" style="color:#1565C0"></i>
-        Trámites y Compra-Venta
-        <span class="cat-chip__count">0</span>
-      </button>
-
-      <button class="cat-chip" data-cat="vehiculos" aria-pressed="false">
-        <i class="fa-solid fa-car" style="color:#7C3AED"></i>
-        Alquiler y Vehículos
-        <span class="cat-chip__count">0</span>
-      </button>
-
-      <button class="cat-chip" data-cat="delivery" aria-pressed="false">
-        <i class="fa-solid fa-motorcycle" style="color:#EA580C"></i>
-        Deliverys y Envíos
-        <span class="cat-chip__count">0</span>
-      </button>
-
-      <button class="cat-chip" data-cat="asistencia" aria-pressed="false">
-        <i class="fa-solid fa-truck-medical" style="color:#EF4444"></i>
-        Auxilio y Asistencia
-        <span class="cat-chip__count">0</span>
-      </button>
-
-    </div>
+    <div class="category-filters" role="group" aria-label="Filtros de categoría"></div>
   </div>
 </section>
 
@@ -364,7 +315,7 @@
           <span class="step-number">2</span>
         </div>
         <h3 class="step-title">Elegí un prestador</h3>
-        <p class="step-desc">Revisá ratings, zonas de cobertura, tarifas y garantías. Todos son prestadores verificados por CN ConnectEC.</p>
+        <p class="step-desc">Revisá zonas de cobertura, tarifas y garantías. Todos son prestadores verificados por CN ConnectEC.</p>
       </div>
 
       <!-- Paso 3 -->
@@ -445,14 +396,7 @@
             <div class="form-group" style="margin-top:0.75rem">
               <label class="form-label" for="q-category">Categoría de servicio <span>*</span></label>
               <div style="position:relative">
-                <select id="q-category" name="category" class="form-select" required style="padding-right:2.5rem">
-                  <option value="">Selecciona una categoría...</option>
-                  <option value="tramites">Trámites y Compra-Venta</option>
-                  <option value="vehiculos">Alquiler y Vehículos</option>
-                  <option value="delivery">Deliverys y Envíos</option>
-                  <option value="asistencia">Auxilio y Asistencia</option>
-                  <option value="otro">Otro</option>
-                </select>
+                <select id="q-category" name="category" class="form-select" required style="padding-right:2.5rem"><option value="">Selecciona una categoría...</option></select>
                 <i class="fa-solid fa-chevron-down" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:0.75rem;pointer-events:none"></i>
               </div>
             </div>
@@ -558,21 +502,7 @@
       </div>
 
       <!-- Categorías -->
-      <div class="footer-col">
-        <h4>Categorías</h4>
-        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('tramites')">
-          <i class="fa-solid fa-file-contract" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Trámites
-        </a>
-        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('vehiculos')">
-          <i class="fa-solid fa-car" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Vehículos
-        </a>
-        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('delivery')">
-          <i class="fa-solid fa-motorcycle" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Delivery
-        </a>
-        <a href="#servicios-populares" class="footer-link" onclick="SearchFilter.setCategory('asistencia')">
-          <i class="fa-solid fa-truck-medical" style="color:var(--cn-cyan);margin-right:0.4rem;font-size:0.75rem"></i>Asistencia
-        </a>
-      </div>
+      <div class="footer-col" id="footer-categories"></div>
 
       <!-- Sitio -->
       <div class="footer-col">
@@ -658,14 +588,7 @@
         </div>
         <div class="form-group" style="margin-top:0.875rem">
           <label class="form-label" for="p-category">Tipo de servicio que ofrecés <span>*</span></label>
-          <select id="p-category" name="category" class="form-select" required>
-            <option value="">Seleccioná...</option>
-            <option value="tramites">Trámites y Compra-Venta</option>
-            <option value="vehiculos">Alquiler y Vehículos</option>
-            <option value="delivery">Deliverys y Envíos</option>
-            <option value="asistencia">Auxilio y Asistencia</option>
-            <option value="otro">Otro tipo de servicio</option>
-          </select>
+          <select id="p-category" name="category" class="form-select" required><option value="">Selecciona una categoría...</option></select>
         </div>
         <div class="form-group" style="margin-top:0.875rem">
           <label class="form-label" for="p-desc">Describe tu servicio brevemente <span>*</span></label>
@@ -687,6 +610,8 @@
      SCRIPTS
      ══════════════════════════════════════════════════════════ -->
 <script src="js/data/services-data.js"></script>
+<script src="js/data/categories-data.js"></script>
+<script src="js/modules/categories.js"></script>
 <script src="js/modules/toast.js"></script>
 <script src="js/modules/search-filter.js"></script>
 <script src="js/modules/modals.js"></script>

@@ -145,6 +145,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadSettings();
 
   // 2. Load services and init search/filter
+  await Categories.load();
+  Categories.renderPublic();
   const services = await loadServices();
   if (typeof SearchFilter !== 'undefined') {
     SearchFilter.init(services);
@@ -168,4 +170,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   initActiveNavLinks();
 
   console.log('[CN ConnectEC] ✅ HUB Multiservicios iniciado.');
+});
+
+window.addEventListener('focus', async () => {
+  await Categories.load();
+  Categories.renderPublic();
+  if (typeof SearchFilter !== 'undefined') SearchFilter.renderGrid();
 });
