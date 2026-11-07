@@ -231,7 +231,7 @@ const server = http.createServer(async (req, res) => {
         const directory = path.join(__dirname, 'assets', 'uploads');
         await fs.promises.mkdir(directory, { recursive: true });
         await fs.promises.writeFile(path.join(directory, savedName), image, { flag: 'wx' });
-        return sendJson(res, 200, { ok: true, url: '/assets/uploads/' + savedName });
+        return sendJson(res, 200, { ok: true, url: 'assets/uploads/' + savedName });
       } catch (err) {
         return sendJson(res, err.status || 500, {
           error: err.status ? err.message : 'No se pudo guardar la imagen.'
