@@ -4,7 +4,7 @@
  */
 
 // ── Constantes globales ────────────────────────────────────────
-const WS_CENTRAL = "+593XXXXXXXXX"; // ← REEMPLAZAR con número real de Manta
+const WS_CENTRAL = "+593992316303"; // WhatsApp central de CN ConnectEC (Manta)
 
 // ── Carga de servicios ─────────────────────────────────────────
 async function loadServices() {

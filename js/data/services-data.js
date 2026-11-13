@@ -20,7 +20,7 @@ const SERVICES_DATA = [
     image: "assets/services/tramites.jpg",
     description: "Gestión e intermediación ágil en trámites notariales, vehiculares (SRI, ANT), contratos, escrituras y documentación civil en Manta. Acompañamiento legal de principio a fin.",
     features: ["Gestión en 24-48h", "Asesoría legal y notarial", "Acompañamiento integral"],
-    whatsappPhone: "+593XXXXXXXXX",
+    whatsappPhone: "+593992316303",
     whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Necesito asesoría e intermediación en trámites.",
     createdAt: "2026-11-01T10:00:00.000Z"
   },
@@ -39,7 +39,7 @@ const SERVICES_DATA = [
     image: "assets/services/taxi-ejecutivo.jpg",
     description: "Traslados ejecutivos seguros, puntuales y climatizados en Manta. Servicio puerta a puerta, traslados al aeropuerto Eloy Alfaro, hoteles y viajes intercantonales.",
     features: ["Conductores profesionales", "Vehículos climatizados", "Puntualidad garantizada"],
-    whatsappPhone: "+593XXXXXXXXX",
+    whatsappPhone: "+593992316303",
     whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Necesito solicitar un taxi ejecutivo.",
     createdAt: "2026-11-01T10:00:00.000Z"
   },
@@ -58,7 +58,7 @@ const SERVICES_DATA = [
     image: "assets/services/turismo-conductor.jpg",
     description: "Rutas turísticas y paseos por las playas de Manabí (San Lorenzo, Santa Marianita, Los Frailes) con chofer guía local bilingüe y vehículos amplios con seguro completo.",
     features: ["Chofer y guía local", "Rutas personalizadas", "Vehículo amplio y cómodo"],
-    whatsappPhone: "+593XXXXXXXXX",
+    whatsappPhone: "+593992316303",
     whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Quiero consultar por el servicio de vehículo de turismo con conductor.",
     createdAt: "2026-11-01T10:00:00.000Z"
   },
@@ -77,7 +77,7 @@ const SERVICES_DATA = [
     image: "assets/services/delivery.jpg",
     description: "Entregas inmediatas en motocicleta: encomiendas, paquetes, compras, documentos y pedidos urgentes con seguimiento en tiempo real vía WhatsApp.",
     features: ["Entrega en 30-45 min", "Seguimiento por WhatsApp", "Cobertura urbana completa"],
-    whatsappPhone: "+593XXXXXXXXX",
+    whatsappPhone: "+593992316303",
     whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Necesito un servicio de Delivery Express.",
     createdAt: "2026-11-01T10:00:00.000Z"
   },
@@ -96,7 +96,7 @@ const SERVICES_DATA = [
     image: "assets/services/limpieza-hogar.jpg",
     description: "Limpieza profunda y de mantenimiento para casas, departamentos y oficinas en Manta. Personal de confianza verificado por CN ConnectEC, insumos adecuados y máxima puntualidad.",
     features: ["Personal 100% verificado", "Limpieza profunda y estándar", "Horarios flexibles"],
-    whatsappPhone: "+593XXXXXXXXX",
+    whatsappPhone: "+593992316303",
     whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Necesito cotizar el servicio de limpieza del hogar.",
     createdAt: "2026-11-01T10:00:00.000Z"
   }
