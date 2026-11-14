@@ -5,23 +5,19 @@
 
 const ExpressQuote = (() => {
 
-  async function submitQuote(data) {
-    // Try the API first
-    try {
-      const res = await fetch('/api/quotes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) return { ok: true };
-      throw new Error('API error');
-    } catch {
-      // Offline fallback: store in localStorage
-      const pending = JSON.parse(localStorage.getItem('cn_pending_quotes') || '[]');
-      pending.push(data);
-      localStorage.setItem('cn_pending_quotes', JSON.stringify(pending));
-      return { ok: true, offline: true };
-    }
+  function buildMessage(data) {
+    return [
+      `Hola, soy ${data.name}.`,
+      `Quiero una cotización de: ${data.category}.`,
+      `Zona: ${data.zone}.`,
+      `Detalle: ${data.description}`,
+      `Mi WhatsApp: ${data.phone}`,
+    ].join('\n');
+  }
+
+  function submitQuote(data) {
+    CNWhatsApp.open(buildMessage(data));
+    return { ok: true };
   }
 
   function init() {
@@ -63,8 +59,8 @@ const ExpressQuote = (() => {
 
       if (result.ok) {
         Toast.success(
-          '¡Cotización enviada!',
-          'Recibirás respuesta vía WhatsApp en breve. ¡Gracias por confiar en CN ConnectEC!'
+          'Se abrió WhatsApp',
+          'Envía el mensaje con tu solicitud para completarla.'
         );
         form.reset();
       } else {

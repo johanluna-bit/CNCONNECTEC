@@ -49,8 +49,10 @@ const SearchFilter = (() => {
             class="service-card__image"
             src="${service.image}"
             alt="${service.title}"
+            width="1200"
+            height="675"
             loading="lazy"
-            onerror="this.src='https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=600&q=80'"
+            decoding="async"
           >
           ${service.badge && service.badge !== 'none' ? `
           <div class="service-card__badge">

@@ -187,31 +187,27 @@ const Modals = (() => {
     // Provider form submission
     const providerForm = document.getElementById('provider-form');
     if (providerForm) {
-      providerForm.addEventListener('submit', async e => {
+      providerForm.addEventListener('submit', e => {
         e.preventDefault();
         const formData = new FormData(providerForm);
         const data = Object.fromEntries(formData.entries());
-        data.status = 'pending';
-        data.createdAt = new Date().toISOString();
 
-        try {
-          const res = await fetch('/api/providers', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          });
-          if (res.ok) {
-            Toast.success('¡Postulación enviada!', 'Nos comunicaremos contigo pronto.');
-            closeModal('provider-modal');
-            providerForm.reset();
-          } else {
-            Toast.error('Error al enviar', 'Intenta nuevamente.');
-          }
-        } catch {
-          Toast.success('¡Postulación enviada!', 'Gracias por tu interés. Te contactaremos pronto.');
-          closeModal('provider-modal');
-          providerForm.reset();
+        if (!data.name || !data.phone || !data.category || !data.description) {
+          Toast.warning('Campos incompletos', 'Por favor completa todos los campos requeridos.');
+          return;
         }
+
+        CNWhatsApp.open([
+          'Hola, quiero sumarme como prestador aliado de CN ConnectEC.',
+          `Nombre / Empresa: ${data.name}`,
+          `WhatsApp: ${data.phone}`,
+          `Categoría: ${data.category}`,
+          `Servicio: ${data.description}`,
+        ].join('\n'));
+
+        Toast.success('Se abrió WhatsApp', 'Envía el mensaje con tu postulación para completarla.');
+        closeModal('provider-modal');
+        providerForm.reset();
       });
     }
   }
