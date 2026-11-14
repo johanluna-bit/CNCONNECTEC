@@ -31,6 +31,13 @@
   <meta name="twitter:description" content="Prestadores de servicios verificados en Manta, Manabí. Contacto directo por WhatsApp.">
   <meta name="twitter:image" content="https://www.cnconnectec.com/assets/logo-full.png">
 
+  <!-- Normaliza /index.html a la raíz, sin recargar -->
+  <script>
+    if (location.pathname.endsWith('/index.html')) {
+      history.replaceState(null, '', location.pathname.replace(/index\.html$/, '') + location.search + location.hash);
+    }
+  </script>
+
   <!-- Datos estructurados (Google) -->
   <script type="application/ld+json">
   {
@@ -144,7 +151,7 @@
     <div style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:0.75rem 0;position:relative">
 
       <!-- Logo & Brand (Izquierda) -->
-      <a href="#" style="display:flex;align-items:center;gap:0.625rem;text-decoration:none;flex-shrink:0" aria-label="CN ConnectEC — Inicio">
+      <a href="/" style="display:flex;align-items:center;gap:0.625rem;text-decoration:none;flex-shrink:0" aria-label="CN ConnectEC - Inicio">
         <img src="assets/logo-icon.png" alt="CN ConnectEC ícono" style="height:40px;width:auto" onerror="this.style.display='none'">
         <div>
           <div style="font-size:1.1875rem;font-weight:800;line-height:1;letter-spacing:-0.02em">
@@ -594,7 +601,7 @@
       <!-- Sitio -->
       <div class="footer-col">
         <h4>Sitio</h4>
-        <a href="#inicio"              class="footer-link">Inicio</a>
+        <a href="/"              class="footer-link">Inicio</a>
         <a href="#como-funciona"       class="footer-link">Cómo funciona</a>
         <a href="#cotizador"           class="footer-link">Cotizador Express</a>
         <a href="#prestadores"         class="footer-link">Ser prestador aliado</a>
