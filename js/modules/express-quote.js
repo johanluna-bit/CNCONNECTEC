@@ -33,13 +33,15 @@ const ExpressQuote = (() => {
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
 
       const formData = new FormData(form);
+      const catSel = form.querySelector('[name="category"]');
+      const zoneSel = form.querySelector('[name="zone"]');
       const data = {
         id: 'quote-' + Date.now(),
         name:        formData.get('name')?.trim(),
         phone:       '+593' + (formData.get('phone') || '').replace(/\D/g, ''),
-        category:    formData.get('category'),
+        category:    catSel?.selectedOptions?.[0]?.text?.trim() || formData.get('category'),
         description: formData.get('description')?.trim(),
-        zone:        formData.get('zone'),
+        zone:        zoneSel?.selectedOptions?.[0]?.text?.trim() || formData.get('zone'),
         status:      'pending',
         createdAt:   new Date().toISOString(),
       };

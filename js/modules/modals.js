@@ -201,7 +201,7 @@ const Modals = (() => {
           'Hola, quiero sumarme como prestador aliado de CN ConnectEC.',
           `Nombre / Empresa: ${data.name}`,
           `WhatsApp: ${data.phone}`,
-          `Categoría: ${data.category}`,
+          `Categoría: ${providerForm.querySelector('[name="category"]')?.selectedOptions?.[0]?.text?.trim() || data.category}`,
           `Servicio: ${data.description}`,
         ].join('\n'));
 
