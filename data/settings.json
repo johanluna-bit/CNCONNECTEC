@@ -7,8 +7,8 @@
   "country": "Ecuador",
   "zones": ["Manta Centro", "Los Esteros", "Tarqui", "Jocay", "Urbanizaciones", "Toda Manta"],
   "socialLinks": {
-    "facebook": "#",
-    "instagram": "#",
-    "tiktok": "#"
+    "facebook": "https://www.facebook.com/",
+    "instagram": "https://www.instagram.com/",
+    "tiktok": "https://www.tiktok.com/"
   }
 }
