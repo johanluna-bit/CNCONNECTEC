@@ -113,7 +113,7 @@ const SERVICES_DATA = [
     badge: "Servicio de temporada",
     badgeColor: "badge--season",
     badgeIcon: "fa-tree",
-    image: "assets/services/arbol-navidad.svg",
+    image: "assets/services/arbol-navidad.jpg",
     description: "Decoración con diferentes estilos y diseños, solicita nuestro catálogo.",
     features: ["Diferentes estilos y diseños", "Catálogo disponible", "Servicio de temporada"],
     whatsappPhone: "+593992316303",
