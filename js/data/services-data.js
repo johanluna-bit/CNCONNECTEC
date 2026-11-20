@@ -56,8 +56,8 @@ const SERVICES_DATA = [
     badge: "",
     badgeColor: "",
     image: "assets/services/turismo-conductor.jpg",
-    description: "Rutas turísticas y paseos por las playas de Manabí (San Lorenzo, Santa Marianita, Los Frailes) con chofer guía local bilingüe y vehículos amplios con seguro completo.",
-    features: ["Chofer y guía local", "Rutas personalizadas", "Vehículo amplio y cómodo"],
+    description: "Rutas turísticas y paseos por las playas de Manabí (San Lorenzo, Santa Marianita) con conductor y vehículo cómodo.",
+    features: ["Conductor profesional", "Rutas personalizadas", "Vehículo cómodo"],
     whatsappPhone: "+593992316303",
     whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Quiero consultar por el servicio de vehículo de turismo con conductor.",
     createdAt: "2026-11-01T10:00:00.000Z"
@@ -70,7 +70,7 @@ const SERVICES_DATA = [
     provider: "CN ConnectEC",
     verified: true,
     active: true,
-    priceNote: "Desde $2.50 en la ciudad",
+    priceNote: "Desde $3.50 en la ciudad",
     zones: ["Manta Centro", "Los Esteros", "Tarqui", "Jocay", "Urbanizaciones", "Toda Manta"],
     badge: "",
     badgeColor: "",
@@ -94,11 +94,31 @@ const SERVICES_DATA = [
     badge: "",
     badgeColor: "",
     image: "assets/services/limpieza-hogar.jpg",
-    description: "Limpieza profunda y de mantenimiento para casas, departamentos y oficinas en Manta. Personal de confianza verificado por CN ConnectEC, insumos adecuados y máxima puntualidad.",
+    description: "Limpieza profunda y de mantenimiento para casas, departamentos y oficinas en Manta.",
     features: ["Personal 100% verificado", "Limpieza profunda y estándar", "Horarios flexibles"],
     whatsappPhone: "+593992316303",
     whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Necesito cotizar el servicio de limpieza del hogar.",
     createdAt: "2026-11-01T10:00:00.000Z"
+  },
+  {
+    id: "navidad-1",
+    title: "Decoración de Árbol de Navidad",
+    category: "navidad",
+    categoryLabel: "Navidad",
+    provider: "CN ConnectEC",
+    verified: true,
+    active: true,
+    priceNote: "Desde $27",
+    zones: ["Manta Centro", "Los Esteros", "Tarqui", "Jocay", "Urbanizaciones", "Toda Manta"],
+    badge: "Servicio de temporada",
+    badgeColor: "badge--season",
+    badgeIcon: "fa-tree",
+    image: "assets/services/arbol-navidad.svg",
+    description: "Decoración con diferentes estilos y diseños, solicita nuestro catálogo.",
+    features: ["Diferentes estilos y diseños", "Catálogo disponible", "Servicio de temporada"],
+    whatsappPhone: "+593992316303",
+    whatsappPreset: "Hola, los contacto desde CN ConnectEC (Manta). Quiero información sobre la decoración de árbol de Navidad.",
+    createdAt: "2026-11-20T12:00:00.000Z"
   }
 ];
 

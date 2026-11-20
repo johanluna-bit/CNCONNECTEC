@@ -57,7 +57,7 @@ const SearchFilter = (() => {
           ${service.badge && service.badge !== 'none' ? `
           <div class="service-card__badge">
             <span class="badge ${service.badgeColor}">
-              <i class="fa-solid fa-shield-halved" style="font-size:0.6rem"></i>
+              <i class="fa-solid ${service.badgeIcon || 'fa-shield-halved'}" style="font-size:0.6rem"></i>
               ${service.badge}
             </span>
           </div>` : ''}

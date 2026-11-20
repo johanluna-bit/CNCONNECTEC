@@ -23,5 +23,11 @@ const CATEGORIES_DATA = [
     "label": "Limpieza",
     "icon": "fa-broom",
     "color": "#7C3AED"
+  },
+  {
+    "id": "navidad",
+    "label": "Navidad",
+    "icon": "fa-tree",
+    "color": "#C1121F"
   }
 ];

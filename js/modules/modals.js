@@ -88,7 +88,7 @@ const Modals = (() => {
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem">
           ${service.badge && service.badge !== 'none' ? `
           <span class="badge ${service.badgeColor}">
-            <i class="fa-solid fa-shield-halved" style="font-size:0.6rem"></i>
+            <i class="fa-solid ${service.badgeIcon || 'fa-shield-halved'}" style="font-size:0.6rem"></i>
             ${service.badge}
           </span>` : ''}
           <span style="font-size:0.8125rem;color:var(--cn-text-muted)">
